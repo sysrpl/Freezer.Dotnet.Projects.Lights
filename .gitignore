@@ -1,5 +1,7 @@
 **/.git
 **/.git/
+**/.git.backup
+**/.git.backup/
 **/bin/
 **/obj/
 bin/
