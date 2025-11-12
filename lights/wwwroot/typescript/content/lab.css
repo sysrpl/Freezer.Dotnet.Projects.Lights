@@ -1,0 +1,131 @@
+#lab .button.pattern {
+    position: absolute;
+    width: 4em;
+    top: 10pt;
+    left: 10pt;
+    padding: 2pt;
+}
+
+#lab .button.off {
+    position: absolute;
+    width: 4em;
+    top: 10pt;
+    right: 10pt;
+    padding: 2pt;
+}
+
+#lab .left, #lab .right {
+    position: absolute;
+    top: calc(50svh - 60pt);
+    display: block;
+    font-size: 32pt;
+    width: 40pt;
+    height: 40pt;
+    line-height:40pt;
+    text-align: center;
+    background: red;
+    color: black;
+    border-radius: 30pt;
+    padding: 4pt;
+}
+
+#lab .left {
+    left: 10pt;
+}
+
+#lab .right {
+    right: 10pt;
+}
+
+#lab .vert {
+    position: absolute;
+    height: calc(100svh - 140px);
+    width: 100%;
+    top: 20pt;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+#lab .vert div {
+    width: 50px;
+    text-align: center;
+}
+
+#lab .vert div.slider {
+    position: relative;
+    flex-grow: 1;
+    flex-basis: 0;
+    width: 24px;
+    border-radius: 14px;
+    background: black;
+}
+
+#lab .vert #counts {
+    width: 8em;
+    background: black;
+}
+
+#lab .vert div.slider .knob {
+    position: absolute;
+    margin: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    border: 1px solid transparent;
+}
+
+#lab .intensity {
+    position: absolute;
+    bottom: 10pt;
+    left: 10pt;
+    width: calc(100% - 20pt);
+    height: 22px;
+    background: linear-gradient(to right, black, red 50%, white);
+}
+
+#lab .intensity .knob {
+    position: absolute;
+    margin: 2px;
+    width: 18px;
+    height: 18px;
+}
+
+#lab {
+    font-size: 16pt;
+}
+
+#lab .button.data {
+    position: absolute;
+    bottom: 60pt;
+    width: 4em;
+    padding: 2pt;
+}
+
+#lab .button.data i {
+    margin-right: 0.25em;
+}
+
+#lab #d0 {
+    left: 10pt;
+}
+
+#lab #d1 {
+    right: 10pt;
+}
+
+div.button {
+    color: black;
+    text-align: center;
+    border-radius: 10px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+div.button:active {
+    background-color: white !important;
+}
+
+#settings div.button {
+    margin: 1em;
+}

@@ -1,0 +1,116 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: black;
+    color: white;
+    display: flex;
+    flex-direction: row;
+}
+
+body {
+    overflow: hidden;
+    /* disable scrolling */
+    touch-action: none;
+    /* prevent pinch-zoom and panning */
+    user-select: none;
+    /* prevent text selection */
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-touch-callout: none;
+    /* disable iOS text copy popup */
+}
+
+/* Main content stays centered */
+#page {
+    flex: 1;
+    /* take remaining space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 4vh 5vw;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 6vh;
+    text-align: center;
+    margin: 0;
+}
+
+button {
+    width: 70%;
+    max-width: 500px;
+    font-size: 3vh;
+    padding: 1.5vh 0;
+    background: black;
+    color: white;
+    border: 2px solid white;
+    border-radius: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:active {
+    background: grey;
+}
+
+button.selected {
+    background: #0f5774;
+    background-color: Highlight;
+    color: HighlightText;
+}
+
+/* Vertical slider container */
+#slider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2vh;
+    gap: 2vh;
+}
+
+/* Vertical slider */
+#brightness-slider {
+    writing-mode: bt-lr;
+    /* vertical orientation */
+    -webkit-appearance: slider-vertical;
+    width: 10vh;
+    height: 80%;
+    /* tall vertical track */
+    background: white;
+    border-radius: 1vh;
+    outline: none;
+    cursor: pointer;
+}
+
+/* Slider thumb */
+#brightness-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 3vh;
+    height: 3vh;
+    border-radius: 50%;
+    background: grey;
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+#brightness-slider::-moz-range-thumb {
+    width: 3vh;
+    height: 3vh;
+    border-radius: 50%;
+    background: grey;
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+#slider-container label {
+    font-size: 2vh;
+    text-align: center;
+}

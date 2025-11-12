@@ -1,0 +1,183 @@
+.selectable {
+    border-radius: 10pt;
+    border: 1px solid black;
+    transition: border 0.4s ease, background-color 0.4s ease;
+}
+
+#music .blocker {
+    display: block;
+    position: absolute;
+    z-index: 100;
+    background: black;
+    width: 100%;
+    left: 0;
+    top: 0;
+    height: 27pt;
+    pointer-events: none;
+}
+
+#music .playing {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: absolute;
+    z-index: 101;
+    background: black;
+    width: calc(100vw - 16pt);
+    left: 0;
+    top: 0;
+}
+
+#music .random {
+    margin-top: 37pt;
+}
+
+#music .playing .song.label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    text-align: left;
+}
+
+#music .playing i {
+    font-size: 24pt;
+}
+
+.scrollbox .lines #folders {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.scrollbox .lines #folders .folder {
+    display: block;
+    float: left;
+    clear: both;
+    line-height: 32pt;
+    width: calc(100vw - 16pt);
+    padding-left: 0.5em;
+    margin: 2pt;
+    margin-top: 0;
+}
+
+.scrollbox .lines #folders .folder .icon {
+    float: left;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+    line-height: 25pt;
+}
+
+.scrollbox .lines #folders .folder .name {
+    float: left;
+    line-height: 32px;
+    font-size: 20pt;
+}
+
+#folders .folder {
+    position: relative;
+}
+
+#folders .folder .count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: steelblue;
+    color: black;
+    border:2px solid black;
+    border-radius: 20px;
+    width: 2em;
+    text-align: center;
+    font-size: 16pt;
+    padding: 0;
+    line-height: 20pt;
+    margin-top: 1.5pt;
+    margin-right: 1pt;
+}
+
+#folders .folder.empty .count {
+    display: none;
+}
+
+#folders .folder .label {
+    line-height: 32pt;
+    height: 32px;
+}
+
+#folders .folder .songs .song {
+    display: block;
+    float: left;
+    clear: both;
+    line-height: 32pt;
+    width: calc(100vw - 2.0em);
+    padding-left: 0.5em;
+    border-radius: 10pt;
+    margin: 0pt;
+    margin-top: 0;
+    margin-left: 0.5em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 20pt;
+}
+
+#folders .folder .songs.hidden {
+    display: none;
+}
+
+#folders .folder .songs .song i {
+    margin-right: 0.5em;
+}
+
+#music .random {
+    position: relative;
+}
+
+#music #playlist {
+    position: absolute;
+    right: 0pt;
+    top: 3pt;
+    display: block;
+    margin-right: 0;
+}
+
+#music #playlist .item {
+    width: 29pt;
+    height: 29pt;
+    line-height: 28pt;
+    float: left;
+    text-align: center;
+    margin-top: -3pt;
+    background-color: black;
+    border-top: 2px solid steelblue;
+    border-bottom: 2px solid steelblue;
+    color: steelblue;
+    transition: color 0.4s ease, background-color 0.4s ease;
+}
+
+#music #playlist .item.selected {
+    color: black;
+    background-color: steelblue;
+}
+
+#music #playlist .item:nth-child(1) {
+    border-left: 2px solid steelblue;
+    border-top-left-radius: 5pt;
+    border-bottom-left-radius: 5pt;
+}
+
+#music #playlist .item:nth-child(5) {
+    border-right: 2px solid steelblue;
+    border-color: steelblue;
+    border-top-right-radius: 5pt;
+    border-bottom-right-radius: 5pt;
+}
+
+.flash {
+  animation: blinking 1s ease-in-out 1;
+}
+
+@keyframes blinking {
+  0%, 100% { color: inherit; }
+  16%, 50%, 83% { color: white; }
+  33%, 66% { color: inherit; }
+}

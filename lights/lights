@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /home/gigauser/Development/Dotnet/Projects/Lights/lights
+dotnet bin/Release/net8.0/lights.dll --urls=http://0.0.0.0:9009/

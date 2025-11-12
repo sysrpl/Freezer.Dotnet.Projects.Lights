@@ -1,0 +1,18 @@
+{
+  "movie_id": "tt0172495",
+  "title": "Gladiator",
+  "year": "2000",
+  "director": "Ridley Scott",
+  "genre": "Action, Adventure, Drama",
+  "rated": "R",
+  "actors": [
+    "Russell Crowe",
+    "Joaquin Phoenix",
+    "Connie Nielsen"
+  ],
+  "plot": "A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him into slavery.",
+  "runtime": "155 min",
+  "critic_score": "80%",
+  "imdb_rating": "8.5",
+  "poster_url": "https://m.media-amazon.com/images/M/MV5BYWQ4YmNjYjEtOWE1Zi00Y2U4LWI4NTAtMTU0MjkxNWQ1ZmJiXkEyXkFqcGc@._V1_SX300.jpg"
+}

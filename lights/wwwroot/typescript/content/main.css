@@ -1,0 +1,205 @@
+@font-face {
+    font-family: "lobster";
+    src: url("/typescript/content/fonts/lobster.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "nunito";
+    src: url("/typescript/content/fonts/nunito.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "sans-regular";
+    src: url("/typescript/content/fonts/sans-regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "sans-bold";
+    src: url("/typescript/content/fonts/sans-bold.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: "sans-regular";
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    touch-action: none;
+    overscroll-behavior: contain;
+}
+
+body {
+    background: black;
+    color: white;
+}
+
+#debug {
+    position: absolute;
+    z-index: 50;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-family: "sans-regular";
+    font-size: 20pt;
+    color: red;
+    text-shadow: 2px 2px black;
+    overflow: hidden;
+}
+
+body #caption {
+    color: white;
+    font-family: "lobster";
+    height: 32pt;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+#caption i {
+    line-height: 32pt;
+    font-size: 20pt;
+    margin-right: 0.25em;
+    text-shadow: 2px 2px black;
+}
+
+#caption span {
+    line-height: 32pt;
+    font-size: 18pt;
+    text-shadow: 2px 2px black;
+    padding: 2pt;
+    padding-right: 4pt;
+    margin-left: 4pt;
+    border-radius: 4pt;
+    border: 1px solid transparent;
+    transition: border 0.4s ease, background-color 0.4s ease;
+}
+
+#caption .mode {
+    display: none;
+}
+
+#caption .logo {
+    float: right;
+    margin: 2pt;
+    margin-top: 3.5pt;
+    height: 28pt;
+    aspect-ratio: 207 / 49;
+    background-image: url('/typescript/images/logo.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+#icons {
+    width: 100%;
+    height: calc(100% - 32pt);
+    display: grid;
+    grid-template-columns: repeat(3, 20%);
+    justify-content: space-evenly;
+    align-content: space-evenly;
+}
+
+#icons .item {
+    aspect-ratio: 1 / 1;
+    background-color: black;
+    text-align: center;
+    border-radius: 2vw;
+    transition: color 0.4s ease, background-color 0.4s ease;
+}
+
+#icons .item:active {
+    color: white;
+}
+
+#notify {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+#notify.hidden {
+    pointer-events: none;
+    opacity: 0;
+}
+
+#notify .message {
+    width: 50vmin;
+    height: 50vmin;
+    background-color: white;
+    border-radius: 15pt;
+    box-shadow: 0 0 20px black;
+}
+
+#notify .message {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24pt;
+    box-sizing: border-box;
+}
+
+#notify .message img {
+    flex: 1;
+    width: 100%;
+    object-fit: contain;
+    margin-top: 10pt;
+    margin-bottom: 24pt;
+    min-height: 0;
+}
+
+#notify .message div {
+    position: absolute;
+    background: white;
+    bottom: -47pt;
+    color: black;
+    border-radius: 20pt;
+    padding: 2pt;
+    padding-left: 16pt;
+    padding-right: 16pt;
+    font-weight: 900;
+    letter-spacing: 2pt;
+    font-size: 24pt;
+}
+
+div.button {
+    color: black;
+    text-align: center;
+    border-radius: 10px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+div.button:active {
+    background-color: white !important;
+}
+
+#settings div.button {
+    margin: 1em;
+}

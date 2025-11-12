@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<style>
+  body {
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-size: 2em;
+  }
+
+  input, button {
+    text-align: center;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 12px;
+    font-size: 1em;
+    padding: 0.5em 1em;
+    margin-bottom: 1em;
+  }
+
+  input {
+    width: 20ch;
+  }
+
+  @media (max-width: 768px) {
+    body {
+      font-size: 5vw;
+    }
+    input, button {
+      font-size: 5vw;
+      width: 60vw;
+      max-width: 400px;
+    }
+  }
+</style>
+</head>
+<body>
+  <input id="loginInput" maxlength="10" placeholder="Enter code">
+  <button onclick="login()">Login</button>
+
+  <script>
+    function login() {
+      const code = document.getElementById('loginInput').value;
+      window.location.href = '/?login=' + encodeURIComponent(code);
+    }
+  </script>
+</body>
+</html>

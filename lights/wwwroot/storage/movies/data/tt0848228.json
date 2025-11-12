@@ -1,0 +1,18 @@
+{
+  "movie_id": "tt0848228",
+  "title": "The Avengers",
+  "year": "2012",
+  "director": "Joss Whedon",
+  "genre": "Action, Sci-Fi",
+  "rated": "PG-13",
+  "actors": [
+    "Robert Downey Jr.",
+    "Chris Evans",
+    "Scarlett Johansson"
+  ],
+  "plot": "Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
+  "runtime": "143 min",
+  "critic_score": "91%",
+  "imdb_rating": "8.0",
+  "poster_url": "https://m.media-amazon.com/images/M/MV5BNGE0YTVjNzUtNzJjOS00NGNlLTgxMzctZTY4YTE1Y2Y1ZTU4XkEyXkFqcGc@._V1_SX300.jpg"
+}

@@ -1,0 +1,2 @@
+#!/bin/bash
+rsync -av ~/Development/Dotnet/Projects/Lights/lights/src/ mattshaw:/home/pi/Development/Dotnet/Projects/Lights/lights/src/

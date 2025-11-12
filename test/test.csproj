@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Codebot\Codebot.Raspberry\Codebot.Raspberry\Codebot.Raspberry.csproj" />
+        <ProjectReference Include="..\..\..\Codebot\Codebot.Raspberry\Codebot.Raspberry.Board\Codebot.Raspberry.Board.csproj" />
+        <ProjectReference Include="..\..\..\Codebot\Codebot.Raspberry\Codebot.Raspberry.Device\Ws28xx\Ws28xx.csproj" />
+        <ProjectReference Include="..\..\..\Codebot\Codebot.Web\Codebot.Web.csproj" />
+    </ItemGroup>
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+    </PropertyGroup>
+</Project>

@@ -1,0 +1,18 @@
+{
+  "movie_id": "tt0105435",
+  "title": "Sneakers",
+  "year": "1992",
+  "director": "Phil Alden Robinson",
+  "genre": "Comedy, Crime, Drama",
+  "rated": "PG-13",
+  "actors": [
+    "Robert Redford",
+    "Dan Aykroyd",
+    "Sidney Poitier"
+  ],
+  "plot": "A security pro finds his past returning to haunt him when he and his unique team are tasked with retrieving a particularly important item.",
+  "runtime": "126 min",
+  "critic_score": "80%",
+  "imdb_rating": "7.1",
+  "poster_url": "https://m.media-amazon.com/images/M/MV5BMGEwMmZlMjgtNDc0MS00NmY1LTljMzQtMzBmNmE0OWRkNjViXkEyXkFqcGc@._V1_SX300.jpg"
+}

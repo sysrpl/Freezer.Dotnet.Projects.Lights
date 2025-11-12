@@ -1,0 +1,194 @@
+@media (min-aspect-ratio: 1/1) {
+    #icons {
+        grid-template-columns: repeat(3, 20%);
+    }
+
+    #effects #colors {
+        grid-template-columns: repeat(15, 1fr);
+    }
+
+    #icons .item i {
+        font-size: 10vw;
+        margin-top: 3vw;
+    }
+
+    #icons .item div {
+        font-size: 20pt;
+    }
+
+    #icons .item div {
+        margin-top: 2vw;
+        font-size: 24pt;
+        display: block;
+    }
+
+    #paint .outline {
+        background-image: url('/typescript/images/slab-h-trim.gif');
+    }
+
+    .scrollbox #effects>div {
+        padding-left: 0.5em;
+        border: 1px solid black;
+        border-radius: 10pt;
+        margin: 2pt;
+        float: left;
+        width: calc(50% - 20pt);
+        transition: border 0.4s ease;
+    }
+
+    .scrollbox #effects>div:nth-child(odd) {
+        clear: left;
+    }
+
+    .scrollbox #effects>div>i {
+        margin-right: 0.25em;
+    }
+
+    .scrollbox .lines>span span {
+        display: block;
+        float: left;
+        width: 45%;
+    }
+
+    .scrollbox .lines>span {
+        margin-bottom: 8em;
+    }
+
+    .scrollbox .lines>div {
+        font-size: 20pt;
+    }
+
+    #webcontrol {
+        position: absolute;
+        left: 0vw;
+        top: 25vh;
+        display: block;
+        width: 50vh;
+        height: 50vh;
+        transform: scale(0.8);
+    }
+
+    #movies .container {
+	position: absolute;
+        left: 46vh;
+        width: calc(100vw - 50vh);
+        padding: 2em;
+        padding-top: 1em;
+        min-height: calc(100vh - 90pt);
+    }
+
+    #movies .details {
+        margin-top: -2em;
+    }
+
+    #movies .poster {
+        width: 40vh;
+        height: auto;
+        padding-right: 2em;
+    }
+}
+
+@media (max-aspect-ratio: 1/1) {
+    #icons {
+        grid-template-columns: repeat(2, 40%);
+    }
+
+    #effects #colors {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    #icons .item i {
+        font-size: 20vw;
+        margin-top: 6vw;
+    }
+
+    #icons .item div {
+        margin-top: 6pt;
+        font-size: 12pt;
+        display: block;
+    }
+
+    #paint .outline {
+        background-image: url('/typescript/images/slab-v-trim.gif');
+    }
+
+    .scrollbox #effects>div {
+        padding-left: 0.5em;
+        border: 1px solid black;
+        border-radius: 10pt;
+        margin: 2pt;
+        transition: border 0.4s ease;
+    }
+
+    .scrollbox #effects>div>i {
+        margin-right: 0.25em;
+    }
+
+    .scrollbox .lines>div {
+        font-size: 20pt;
+    }
+
+    #settings .group .label {
+        display: block;
+        width: calc(100vw - 20pt);
+        text-align: center;
+        border-radius: 8pt;
+        color: black;
+        top: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    #settings .child {
+        width: calc(100vw - 20pt);
+        margin-left: 5pt;
+    }
+
+    #settings .mixer {
+        width: calc(100vw - 28pt);
+    }
+
+    #settings .combo.child {
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 5pt;
+        width: calc(100vw - 8pt);
+    }
+
+    #settings #visualsource .label {
+        display: none;
+    }
+
+    #settings #visualsource span.music {
+        margin-left: -1.5em;
+    }
+
+    #settings #visualsource span.microphone {
+        margin-left: -1.5em;
+    }
+
+    #movies .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        margin-top: 3em;
+        padding: 1em;
+        padding-bottom: 4em;
+    }
+
+    #movies .details {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        white-space: pre-wrap;
+        align-self: flex-start;
+    }
+
+    #movies .poster {
+        max-width: 80vw;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
+}

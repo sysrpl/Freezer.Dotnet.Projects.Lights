@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lights Test</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="boot" content="/typescript/build/app.js">
+    <link rel="stylesheet" type="text/css" href="/typescript/content/test.css">
+</head>
+<body>
+    <div id="page">
+        <h1>Lights Test</h1>
+        <button onclick="light(this, 5)">Mixed</button>
+        <button onclick="light(this, 1)">Red</button>
+        <button onclick="light(this, 2)">Green</button>
+        <button onclick="light(this, 3)">Blue</button>
+        <button onclick="light(this, 4)">White</button>
+        <button onclick="light(this, 0)">Off</button>
+    </div>
+    <div id="slider-container">
+        <input id="brightness-slider" type="range" min="0" max="100" value="50" orient="vertical">
+        <label id="brightness-label" for="slider">50%</label>
+    </div>
+    <script type="text/javascript" src="/typescript/build/boot.js"></script>
+</body>
+</body>
+</html>

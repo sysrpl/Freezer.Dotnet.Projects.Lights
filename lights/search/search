@@ -1,0 +1,219 @@
+#!/usr/bin/env python3
+"""
+Movie Details Fetcher
+Fetches movie information and posters, caching results to avoid duplicate searches.
+"""
+
+import json
+import os
+import sys
+import requests
+from pathlib import Path
+from typing import Optional, Dict, Any
+
+# Configuration
+API_KEY = "a20b9d4c"  # Get free API key from http://www.omdbapi.com/apikey.aspx
+BASE_URL = "http://www.omdbapi.com/"
+MASTER_FILE = "movies.json"
+MOVIE_DATA_DIR = "data"
+
+
+class MovieFetcher:
+    def __init__(self, api_key: str):
+        self.api_key = api_key
+        self.master_data = self._load_master_file()
+        
+        # Create directory for movie data if it doesn't exist
+        Path(MOVIE_DATA_DIR).mkdir(exist_ok=True)
+    
+    def _load_master_file(self) -> Dict[str, Any]:
+        """Load the master movies.json file or create if doesn't exist."""
+        if os.path.exists(MASTER_FILE):
+            with open(MASTER_FILE, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        return {"movies": []}
+    
+    def _save_master_file(self):
+        """Save the master movies.json file."""
+        with open(MASTER_FILE, 'w', encoding='utf-8') as f:
+            json.dump(self.master_data, f, indent=2, ensure_ascii=False)
+    
+    def _find_cached_movie(self, title: str, year: Optional[str] = None) -> Optional[str]:
+        """Check if movie already exists in cache."""
+        title_lower = title.lower()
+        
+        for movie in self.master_data["movies"]:
+            if movie["title"].lower() == title_lower:
+                if year is None or movie.get("year") == year:
+                    return movie["movie_id"]
+        return None
+    
+    def _fetch_movie_data(self, title: str, year: Optional[str] = None) -> Optional[Dict[str, Any]]:
+        """Fetch movie data from OMDb API."""
+        params = {
+            "apikey": self.api_key,
+            "t": title,
+            "type": "movie"
+        }
+        
+        if year:
+            params["y"] = year
+        
+        try:
+            response = requests.get(BASE_URL, params=params, timeout=10)
+            response.raise_for_status()
+            data = response.json()
+            
+            if data.get("Response") == "True":
+                return data
+            else:
+                print(f"Error: {data.get('Error', 'Unknown error')}")
+                return None
+                
+        except requests.exceptions.RequestException as e:
+            print(f"Error fetching movie data: {e}")
+            return None
+    
+    def _download_poster(self, poster_url: str, movie_id: str) -> bool:
+        """Download movie poster and save as movie_id.jpg."""
+        if poster_url == "N/A":
+            print("No poster available for this movie")
+            return False
+        
+        try:
+            response = requests.get(poster_url, timeout=10)
+            response.raise_for_status()
+            
+            poster_path = os.path.join(MOVIE_DATA_DIR, f"{movie_id}.jpg")
+            with open(poster_path, 'wb') as f:
+                f.write(response.content)
+            
+            print(f"Poster saved: {poster_path}")
+            return True
+            
+        except requests.exceptions.RequestException as e:
+            print(f"Error downloading poster: {e}")
+            return False
+    
+    def _extract_movie_details(self, movie_id: str, data: Dict[str, Any]) -> Dict[str, Any]:
+        """Extract relevant movie details from API response."""
+        # Parse ratings to find critic score
+        critic_score = "N/A"
+        ratings = data.get("Ratings", [])
+        for rating in ratings:
+            if rating["Source"] in ["Rotten Tomatoes", "Metacritic"]:
+                critic_score = rating["Value"]
+                break
+        
+        # Extract main actors (first 5)
+        actors = data.get("Actors", "N/A")
+        if actors != "N/A":
+            actors_list = [actor.strip() for actor in actors.split(",")[:5]]
+        else:
+            actors_list = []
+        
+        return {
+            "movie_id": movie_id,
+            "title": data.get("Title", "N/A"),
+            "year": data.get("Year", "N/A"),
+            "director": data.get("Director", "N/A"),
+            "genre": data.get("Genre", "N/A"),
+            "rated": data.get("Rated", "N/A"),
+            "actors": actors_list,
+            "plot": data.get("Plot", "N/A"),
+            "runtime": data.get("Runtime", "N/A"),
+            "critic_score": critic_score,
+            "imdb_rating": data.get("imdbRating", "N/A"),
+            "poster_url": data.get("Poster", "N/A")
+        }
+    
+    def fetch_movie(self, title: str, year: Optional[str] = None) -> Optional[str]:
+        """
+        Main method to fetch movie details.
+        Returns movie_id if successful, None otherwise.
+        """
+        # Check if already cached
+        cached_id = self._find_cached_movie(title, year)
+        if cached_id:
+            print(f"Movie already cached with ID: {cached_id}")
+            return cached_id
+        
+        # Fetch from API
+        print(f"Fetching movie data for: {title}" + (f" ({year})" if year else ""))
+        raw_data = self._fetch_movie_data(title, year)
+        
+        if not raw_data:
+            return None
+        
+        # Extract details
+        movie_id = raw_data.get("imdbID")
+        movie_details = self._extract_movie_details(movie_id, raw_data)
+        
+        if not movie_id:
+            print("Error: No IMDb ID found")
+            return None
+        
+        # Download poster
+        self._download_poster(movie_details["poster_url"], movie_id)
+        
+        # Save movie details to JSON file
+        movie_file = os.path.join(MOVIE_DATA_DIR, f"{movie_id}.json")
+        with open(movie_file, 'w', encoding='utf-8') as f:
+            json.dump(movie_details, f, indent=2, ensure_ascii=False)
+        
+        print(f"Movie data saved: {movie_file}")
+        
+        # Update master file
+        self.master_data["movies"].append({
+            "title": movie_details["title"],
+            "year": movie_details["year"],
+            "movie_id": movie_id
+        })
+        self._save_master_file()
+        
+        print(f"Movie ID: {movie_id}")
+        return movie_id
+
+
+def parse_arguments(args: list) -> Dict[str, str]:
+    """Parse command line arguments in the format key=value."""
+    parsed = {}
+    for arg in args:
+        if "=" in arg:
+            key, value = arg.split("=", 1)
+            parsed[key.lower()] = value
+    return parsed
+
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: python movie_fetcher.py title='Movie Title' [year=YYYY]")
+        print("Example: python movie_fetcher.py title='Top Gun: Maverick' year=2022")
+        sys.exit(1)
+    
+    # Parse arguments
+    args = parse_arguments(sys.argv[1:])
+    
+    if "title" not in args:
+        print("Error: 'title' argument is required")
+        sys.exit(1)
+    
+    title = args["title"]
+    year = args.get("year")
+    
+    # Initialize fetcher
+    fetcher = MovieFetcher(API_KEY)
+    
+    # Fetch movie
+    movie_id = fetcher.fetch_movie(title, year)
+    
+    if movie_id:
+        print(f"\nSuccess! Movie ID: {movie_id}")
+        return movie_id
+    else:
+        print("\nFailed to fetch movie data")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

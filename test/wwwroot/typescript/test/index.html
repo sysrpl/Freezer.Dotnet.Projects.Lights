@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Test Page</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="boot" content="/typescript/build/app.js">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="/typescript/test/index.css" rel="stylesheet" type="text/css" media="all">
+</head>
+
+<body>
+    <div id="wallpaper"></div>
+    <div id="scrollbox">
+        <div id="header">
+            <div id="caption">
+                <div class="title">My Test Page</div>
+            </div>
+        </div>
+        <div id="page">
+            <div id="content">
+                <div id="output">Welcome to my test web page</div>
+            </div>
+        </div>
+        <div id="footer"></div>
+    </div>
+    <!-- The dialog typescript needs html like this somewhere under body  -->
+    <div id="overlay">
+        <!-- Required -->
+        <div class="dialog" id="messageBox">
+            <div class="caption">Information</div>
+            <div class="content">
+                <div class="message">A message.</div>
+            </div>
+            <button class="accept" type="button">OK</button>
+            <button class="cancel" type="button">Cancel</button>
+        </div>
+        <!-- Optional example -->
+        <div class="dialog" id="login">
+            <div class="caption"><i class="fa fa-cloud-upload"></i>Sign In</div>
+            <div class="content">
+                <form method="POST" action="/?method=login">
+                    <label for="name">User:</label>
+                    <input type="text" id="name" name="name">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password">
+                </form>
+            </div>
+            <button class="accept" type="button">Sign In</button>
+            <button class="cancel" type="button">Cancel</button>
+        </div>
+    </div>    
+    <script type="text/javascript" src="/typescript/build/boot.js"></script>
+</body>
+
+</html>

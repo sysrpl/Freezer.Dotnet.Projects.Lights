@@ -1,0 +1,18 @@
+{
+  "movie_id": "tt0133093",
+  "title": "The Matrix",
+  "year": "1999",
+  "director": "Lana Wachowski, Lilly Wachowski",
+  "genre": "Action, Sci-Fi",
+  "rated": "R",
+  "actors": [
+    "Keanu Reeves",
+    "Laurence Fishburne",
+    "Carrie-Anne Moss"
+  ],
+  "plot": "When a beautiful stranger leads computer hacker Neo to a forbidding underworld, he discovers the shocking truth--the life he knows is the elaborate deception of an evil cyber-intelligence.",
+  "runtime": "136 min",
+  "critic_score": "83%",
+  "imdb_rating": "8.7",
+  "poster_url": "https://m.media-amazon.com/images/M/MV5BN2NmN2VhMTQtMDNiOS00NDlhLTliMjgtODE2ZTY0ODQyNDRhXkEyXkFqcGc@._V1_SX300.jpg"
+}

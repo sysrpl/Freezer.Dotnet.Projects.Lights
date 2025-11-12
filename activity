@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Run indefinitely
+while true; do
+    # Clear the screen
+    # Fetch and display system info
+    data=`curl -s "https://app.mattshaw.space/?action=settings-get-sysinfo"`
+    clear
+    echo $data
+    # Add a newline at the end for cleaner output
+    echo
+    # Wait 2 seconds before next update
+    sleep 2
+done

@@ -1,0 +1,249 @@
+.scrollarea {
+    position: relative;
+    display: none;
+    height: calc(100% - 32pt);
+    width: 100%;
+    overflow: hidden;
+    overscroll-behavior: contain;
+}
+
+.scrollbox {
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.scrollbox::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollarea .up,
+.scrollarea .down {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2em;
+    opacity: 0.7;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    z-index: 150;
+}
+
+.scrollarea .up {
+    top: 5px;
+}
+
+.scrollarea .down {
+    bottom: 5px;
+}
+
+.scrollarea .up.hidden,
+.scrollarea .down.hidden {
+    opacity: 0;
+}
+
+.scrollbox>div {
+    display: none;
+}
+
+.scrollbox .lines>div {
+    height: 32pt;
+    line-height: 32pt;
+    font-size: 16pt;
+    padding-left: 0.5em;
+    border: 1px solid black;
+    border-radius: 10pt;
+    margin: 2pt;
+    transition: border 0.4s ease, background-color 0.4s ease;
+}
+
+.scrollbox #music.lines>div>i {
+    margin-right: 0.25em;
+}
+
+.mixer {
+    display: flex;
+    gap: 10pt;
+    align-items: center;
+    padding-right: 10pt
+}
+
+.mixer .label {
+    flex-shrink: 0;
+}
+
+.mixer .slider {
+    position: relative;
+    flex-grow: 1;
+    flex-basis: 0;
+    height: 28px;
+    border-radius: 16px;
+    background: black;
+}
+
+.mixer .slider .knob {
+    position: absolute;
+    margin: 2px;
+    width: 22px;
+    height: 22px;
+    border-radius: 11px;
+    border: 1px solid transparent;
+}
+
+.toggle {
+    float: right;
+    margin-right: 10pt;
+    margin-top: 4pt;
+    width: 50pt;
+    border-radius: 14px;
+    background: black;
+    border: 2px solid gray;
+    transition: border 0.4s ease;
+}
+
+.toggle .knob {
+    float: left;
+    margin: 2px;
+    width: 22px;
+    height: 22px;
+    border-radius: 14px;
+    border: 2px solid transparent;
+    background: grey;
+    transition: background-color 0.4s ease;
+}
+
+.toggle.enabled .knob {
+    float: right;
+}
+
+#settings #theme>div {
+    float: right;
+    margin-right: 8pt;
+    margin-top: 4pt;
+    width: 21pt;
+    height: 21pt;
+    border: 2px solid black;
+    transition: border 0.4s ease;
+}
+
+#settings .combo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 14pt;
+    padding-right: 14pt;
+}
+
+#settings .group  {
+    position: relative;
+    padding-top: 0;
+    padding-bottom: 0;
+    line-height: 26pt;
+    margin-top: 6pt;
+    margin-bottom: -6pt;
+}
+
+#settings .group i {
+    position: absolute;
+    left: 16pt;
+    top: 3pt;
+}
+
+#settings .group.selected  {
+    border: 1px solid black !important;
+}
+
+#settings .group .label {
+    display: block;
+    width: min(20em, 60vw);
+    text-align: center;
+    border-radius: 8pt;
+    color: black;
+    top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+#settings .child {
+    width: calc(100vw - 54pt);
+    margin-left: 32pt;
+}
+
+#settings .mixer {
+    width: calc(100vw - 60pt);
+    margin-left: 32pt;
+}
+
+#settings .combo.child {
+    padding-left: 0;
+    padding-right: 0;
+    width: calc(100vw - 44pt);
+}
+
+#settings .combo.child .left {
+    padding-left: 8pt;
+}
+
+#settings .combo.child .right {
+    padding-right: 8pt;
+}
+
+#settings #visualsource {
+    display: flex;
+}
+
+#settings #visualsource .label {
+    flex: 0 0 auto;
+    text-align: center;
+}
+
+#settings #visualsource span.music {
+    flex: 1;
+    text-align: center;
+}
+
+#settings #visualsource span.microphone {
+    flex: 1;
+    text-align: center;
+}
+
+#settings #visualsource span i {
+    margin-right: 0.25em;
+    position: relative;
+    top: 1pt;
+}
+
+#settings #accesscode {
+    text-align: center;
+    font-weight: 900;
+    font-size: 22pt;
+}
+
+#settings #usage {
+    display: none;
+}
+
+#effects .preview {
+    float: right;
+    display: flex;
+    margin-right: 10pt;
+    margin-top: 6pt;
+    height: 18pt;
+    width: 40pt;
+    border: 1px solid white;
+}
+
+.preview>div {
+    flex: 1;
+    height: 100%;
+}
+
+.scrollbox .lines>span {
+    font-size: 20pt;
+    padding: 1em;
+    padding-left: 2em;
+    display: block;
+    margin-top: -1.5em;
+}

@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Codebot\Codebot.Raspberry\Codebot.Raspberry\Codebot.Raspberry.csproj" />
+        <ProjectReference Include="..\..\..\Codebot\Codebot.Raspberry\Codebot.Raspberry.Board\Codebot.Raspberry.Board.csproj" />
+        <ProjectReference Include="..\..\..\Codebot\Codebot.Raspberry\Codebot.Raspberry.Device\Ws28xx\Ws28xx.csproj" />
+        <ProjectReference Include="..\..\..\Codebot\Codebot.Web\Codebot.Web.csproj" />
+        <ProjectReference Include="..\..\..\Libraries\SDL2-CS\SDL2-CS.csproj" />
+    </ItemGroup>
+    <PropertyGroup>
+        <Deterministic>false</Deterministic>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+        <VersionPrefix>1.0.1</VersionPrefix>
+        <VersionSuffix>$([System.IO.File]::ReadAllText('$(MSBuildProjectDirectory)/version.txt').Trim())</VersionSuffix>
+    </PropertyGroup>
+    <Target Name="SetVersion" BeforeTargets="BeforeBuild" Condition="'$(BuildingInsideVisualStudio)' != 'true' OR '$(BuildingProject)' == 'true'">
+        <PropertyGroup>
+            <BuildNumber>$([System.IO.File]::ReadAllText('$(MSBuildProjectDirectory)/version.txt').Trim())</BuildNumber>
+            <BuildNumber>$([MSBuild]::Add($(BuildNumber), 1))</BuildNumber>
+            <AssemblyVersion>1.0.1.$(BuildNumber)</AssemblyVersion>
+            <FileVersion>1.0.1.$(BuildNumber)</FileVersion>
+            <Version>1.0.1.$(BuildNumber)</Version>
+        </PropertyGroup>
+        <WriteLinesToFile File="$(MSBuildProjectDirectory)/version.txt" Lines="$(BuildNumber)" Overwrite="true" />
+    </Target>
+</Project>

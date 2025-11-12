@@ -1,0 +1,23 @@
+#effects #colors {
+    clear: both;
+    margin: 0;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(16, 1fr);
+    gap: 10px;
+    padding: 2em;
+    justify-items: center;
+    align-items: center;
+}
+
+#effects #colors div {
+    width: 24pt;
+    height: 24pt;
+    border: 2px solid black;
+    background: black;
+    transition: border-color 0.2s;
+}
+
+#effects #colors div.selected {
+    border-color: white !important;
+}

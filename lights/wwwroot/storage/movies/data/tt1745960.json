@@ -1,0 +1,18 @@
+{
+  "movie_id": "tt1745960",
+  "title": "Top Gun: Maverick",
+  "year": "2022",
+  "director": "Joseph Kosinski",
+  "genre": "Action, Drama",
+  "rated": "PG-13",
+  "actors": [
+    "Tom Cruise",
+    "Jennifer Connelly",
+    "Miles Teller"
+  ],
+  "plot": "The story involves Maverick confronting his past while training a group of younger Top Gun graduates, including the son of his deceased best friend, for a dangerous mission.",
+  "runtime": "130 min",
+  "critic_score": "96%",
+  "imdb_rating": "8.2",
+  "poster_url": "https://m.media-amazon.com/images/M/MV5BMDBkZDNjMWEtOTdmMi00NmExLTg5MmMtNTFlYTJlNWY5YTdmXkEyXkFqcGc@._V1_SX300.jpg"
+}

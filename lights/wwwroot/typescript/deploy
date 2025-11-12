@@ -1,0 +1,5 @@
+#!/bin/bash
+cd /home/gigauser/Development/Dotnet/Projects/Lights/lights/wwwroot/typescript
+./make.sh app
+./make.sh search
+rsync -av ~/Development/Dotnet/Projects/Lights/lights/wwwroot/typescript/ piphi:/home/pi/Development/Dotnet/Projects/Lights/lights/wwwroot/typescript/

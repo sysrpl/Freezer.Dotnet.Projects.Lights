@@ -1,0 +1,201 @@
+#!/usr/bin/env python3
+"""
+HD Movie Poster Fetcher
+Fetches high-definition movie posters using TMDB API.
+"""
+
+import json
+import os
+import sys
+import requests
+from pathlib import Path
+from typing import Optional
+
+# Configuration
+TMDB_API_KEY = "b616475ce91b1d4d2d68d0ef204b097c"  # Different from OMDb - get from https://www.themoviedb.org/settings/api
+TMDB_BASE_URL = "https://api.themoviedb.org/3"
+TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p/original"  # Original = highest quality
+MOVIE_DATA_DIR = "data"
+
+
+class HDPosterFetcher:
+    def __init__(self, api_key: str):
+        self.api_key = api_key
+    
+    def _load_movie_data(self, movie_id: str) -> Optional[dict]:
+        """Load movie data from the JSON file."""
+        json_path = os.path.join(MOVIE_DATA_DIR, f"{movie_id}.json")
+        
+        if not os.path.exists(json_path):
+            print(f"Error: Movie data file not found: {json_path}")
+            return None
+        
+        try:
+            with open(json_path, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except json.JSONDecodeError as e:
+            print(f"Error reading movie data: {e}")
+            return None
+    
+    def _search_tmdb_by_imdb_id(self, imdb_id: str) -> Optional[dict]:
+        """Search TMDB using IMDb ID to get movie details."""
+        url = f"{TMDB_BASE_URL}/find/{imdb_id}"
+        params = {
+            "api_key": self.api_key,
+            "external_source": "imdb_id"
+        }
+        
+        try:
+            response = requests.get(url, params=params, timeout=10)
+            response.raise_for_status()
+            data = response.json()
+            
+            if data.get("movie_results"):
+                return data["movie_results"][0]
+            else:
+                print("No results found on TMDB")
+                return None
+                
+        except requests.exceptions.RequestException as e:
+            print(f"Error searching TMDB: {e}")
+            return None
+    
+    def _search_tmdb_by_title(self, title: str, year: str) -> Optional[dict]:
+        """Search TMDB using title and year as fallback."""
+        url = f"{TMDB_BASE_URL}/search/movie"
+        
+        # Extract just the year if it's a range
+        search_year = year
+        if year != "N/A" and "–" in year:
+            search_year = year.split("–")[0]
+        
+        params = {
+            "api_key": self.api_key,
+            "query": title,
+        }
+        
+        if search_year != "N/A":
+            params["year"] = search_year
+        
+        try:
+            response = requests.get(url, params=params, timeout=10)
+            response.raise_for_status()
+            data = response.json()
+            
+            if data.get("results"):
+                return data["results"][0]
+            else:
+                print("No results found on TMDB")
+                return None
+                
+        except requests.exceptions.RequestException as e:
+            print(f"Error searching TMDB: {e}")
+            return None
+    
+    def _download_hd_poster(self, poster_path: str, movie_id: str) -> bool:
+        """Download HD poster from TMDB."""
+        if not poster_path:
+            print("No poster path available")
+            return False
+        
+        poster_url = f"{TMDB_IMAGE_BASE}{poster_path}"
+        
+        try:
+            print(f"Downloading HD poster from TMDB...")
+            response = requests.get(poster_url, timeout=30)
+            response.raise_for_status()
+            
+            # Save as movie_id-hd.jpg
+            output_path = os.path.join(MOVIE_DATA_DIR, f"{movie_id}-hd.jpg")
+            with open(output_path, 'wb') as f:
+                f.write(response.content)
+            
+            file_size = len(response.content) / 1024  # Size in KB
+            print(f"HD poster saved: {output_path} ({file_size:.1f} KB)")
+            return True
+            
+        except requests.exceptions.RequestException as e:
+            print(f"Error downloading HD poster: {e}")
+            return False
+    
+    def fetch_hd_poster(self, movie_id: str) -> bool:
+        """
+        Main method to fetch HD poster for a given movie ID.
+        Returns True if successful, False otherwise.
+        """
+        # Check if HD poster already exists
+        hd_poster_path = os.path.join(MOVIE_DATA_DIR, f"{movie_id}-hd.jpg")
+        if os.path.exists(hd_poster_path):
+            print(f"HD poster already exists: {hd_poster_path}")
+            return True
+        
+        # Load movie data
+        movie_data = self._load_movie_data(movie_id)
+        if not movie_data:
+            return False
+        
+        print(f"Fetching HD poster for: {movie_data.get('title', 'Unknown')}")
+        
+        # Try searching by IMDb ID first (most accurate)
+        tmdb_data = self._search_tmdb_by_imdb_id(movie_id)
+        
+        # Fallback to title/year search if IMDb search fails
+        if not tmdb_data:
+            print("Trying fallback search by title and year...")
+            title = movie_data.get('title', '')
+            year = movie_data.get('year', 'N/A')
+            tmdb_data = self._search_tmdb_by_title(title, year)
+        
+        if not tmdb_data:
+            return False
+        
+        # Get poster path
+        poster_path = tmdb_data.get("poster_path")
+        if not poster_path:
+            print("No HD poster available for this movie")
+            return False
+        
+        # Download HD poster
+        return self._download_hd_poster(poster_path, movie_id)
+
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: python hd_poster_fetcher.py <movie_id>")
+        print("Example: python hd_poster_fetcher.py tt1745960")
+        print("\nNote: This script requires a TMDB API key (different from OMDb)")
+        print("Get yours free at: https://www.themoviedb.org/settings/api")
+        sys.exit(1)
+    
+    movie_id = sys.argv[1]
+    
+    # Validate movie_id format (IMDb IDs start with 'tt')
+    if not movie_id.startswith('tt'):
+        print("Error: Invalid movie ID format. IMDb IDs should start with 'tt'")
+        sys.exit(1)
+    
+    # Check if API key is set
+    if TMDB_API_KEY == "YOUR_TMDB_API_KEY":
+        print("Error: TMDB API key not configured!")
+        print("\nTo get a TMDB API key:")
+        print("1. Sign up at https://www.themoviedb.org/signup")
+        print("2. Go to https://www.themoviedb.org/settings/api")
+        print("3. Request an API key (choose 'Developer')")
+        print("4. Copy the 'API Key (v3 auth)' and paste it in the script")
+        sys.exit(1)
+    
+    # Initialize fetcher
+    fetcher = HDPosterFetcher(TMDB_API_KEY)
+    
+    # Fetch HD poster
+    success = fetcher.fetch_hd_poster(movie_id)
+    
+    if success:
+        print(f"\n✓ Success! HD poster downloaded for movie ID: {movie_id}")
+    else:
+        print(f"\n✗ Failed to fetch HD poster for movie ID: {movie_id}")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,18 @@
+{
+  "movie_id": "tt0113243",
+  "title": "Hackers",
+  "year": "1995",
+  "director": "Iain Softley",
+  "genre": "Crime, Drama, Romance",
+  "rated": "PG-13",
+  "actors": [
+    "Jonny Lee Miller",
+    "Angelina Jolie",
+    "Jesse Bradford"
+  ],
+  "plot": "Teenage hackers discover a criminal conspiracy with plans to use a computer virus that will capsize five oil tankers.",
+  "runtime": "105 min",
+  "critic_score": "34%",
+  "imdb_rating": "6.2",
+  "poster_url": "https://m.media-amazon.com/images/M/MV5BOGZkZTc2ZjItNzIzMS00ODRlLTliNjgtZjRmNzM2NjkzZTU1XkEyXkFqcGc@._V1_SX300.jpg"
+}

@@ -1,0 +1,18 @@
+{
+  "movie_id": "tt0102057",
+  "title": "Hook",
+  "year": "1991",
+  "director": "Steven Spielberg",
+  "genre": "Adventure, Comedy, Family",
+  "rated": "PG",
+  "actors": [
+    "Dustin Hoffman",
+    "Robin Williams",
+    "Julia Roberts"
+  ],
+  "plot": "When Captain James Hook kidnaps his children, an adult Peter Pan must return to Neverland and reclaim his youthful spirit in order to challenge his old enemy.",
+  "runtime": "142 min",
+  "critic_score": "29%",
+  "imdb_rating": "6.8",
+  "poster_url": "https://m.media-amazon.com/images/M/MV5BOTU0ZTU3MGUtOTQwNi00N2QzLWFmMDUtZDgxMGJlNGI5NDllXkEyXkFqcGc@._V1_SX300.jpg"
+}

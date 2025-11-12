@@ -1,0 +1,615 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+html, body {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background: white;
+    color: black;
+    font-family: 'Montserrat';
+    overflow: hidden;
+    cursor: default;
+}
+
+textarea:focus, input:focus, button:focus {
+    outline: none;
+}
+
+.noselect {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+ }
+
+#wallpaper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(53, 53, 53); 
+    z-index: 1;
+}
+
+#scrollbox {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+#header, #page, #footer {
+    left: 50vw;
+    margin-left: -560px;
+    width: 1100px;
+}
+
+#header {
+    position: fixed;
+    top: 0;
+    z-index: 7;
+}
+
+#caption {
+    position: relative;
+    width: 100%;
+    height: 64px;
+    color: white;
+    background: #3d70a7; 
+}
+
+#caption .title {
+    height: 64px;
+    line-height: 64px;
+    font-size: 32px;
+    margin-left: 20px;
+}
+
+#page {
+    position: absolute;
+    background: white;
+    top: 0;
+    height: auto;
+    min-height: calc(100% - 88px);
+    z-index: 5;
+    padding-top: 88px;
+}
+
+#content {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    height: 30px;
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.33));
+    z-index: 10;
+}
+
+/* This is an example css file for the optional tooltip files */
+
+#tipbox {
+    padding: 8px;
+    border-radius: 6px;
+    background: #f1f1a9;
+    border: 1px solid #b7b76c;
+    padding: 6px;
+    color: #75752c;
+    font-size: 13px;
+    position: absolute;
+    z-index: 99;
+    display: inline-block;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    left: 0;
+    top: 0;
+    max-width: 300px;
+    text-align: center;
+}
+
+#tipbox.fixed {
+    max-width: 5000px;
+}
+
+#tipbox.visible {
+    opacity: 1;
+    transition: opacity 0.3s; 
+}
+
+#tipbox #tip-above, #tipbox #tip-below {
+    position: absolute;
+    left: 50%;
+    margin-left: -12px;
+} 
+
+#tipbox.left {
+    margin-left: -22px;
+}
+
+#tipbox.left #tip-above, #tipbox.left #tip-below {
+    left: 20px;
+} 
+
+#tipbox #tip-above {
+    bottom: -12.5px;
+}
+
+#tipbox #tip-below {
+    top: -12.5px;
+}
+
+#tipbox.below #tip-above {
+    display: none;
+}
+
+#tipbox.above #tip-below {
+    display: none;
+}
+
+/* This is an example css file for the optional dialog files */
+
+#overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 99; 
+    transition: opacity 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+}
+
+#overlay.show {
+    pointer-events: initial;
+    opacity: 1;
+    transition: opacity 0.2s;
+}
+
+.dialog {
+    font-size: 15px;
+    background: #efefef;
+    border: 1px solid white;
+    overflow: hidden;
+    position: relative;
+}
+
+.dialog .caption {
+    height: 28px;
+    line-height: 29px;
+    background: steelblue;
+    text-align: left;
+    text-indent: 10px;
+    font-weight: bolder;
+    color: white;
+    margin-bottom: -1px;
+    font-size: 16px;
+}
+
+.dialog .caption .fa {
+    margin-right: 8px;
+}
+
+.dialog .content {
+    display: inline-block;
+    min-width: 250px;
+    min-height: 40px;
+    padding: 15px;
+    padding-bottom: 35px;
+}
+
+.dialog button {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 75px;
+    height: 25px;
+    font-size: 15px;
+    cursor: pointer;
+    border: 1px solid #a7a7a7;
+    background: linear-gradient(to bottom, #e6e6e6, #b1b1b1);
+    transition: border-color 0.1s, color 0.1s;
+    text-align: center;
+    color: #000000;
+    border-radius: 4px;
+}
+
+.dialog button:hover {
+    border-color: #5F5F5F;
+    transition: border-color 0.2s, color 0.2s;
+    color: black;
+}
+
+.dialog button:hover:active {
+    border-color: black;
+    background: #AAAAAA;
+}
+
+.dialog button.accept {
+    right: 92px;
+}
+
+.dialog input {
+    outline: none;
+    border: 1px solid rgba(47, 35, 26, 0.5);
+    display: block;
+    margin-top: 4px;
+    margin-bottom: 16px;
+    width: 200px;
+    height: 24px;
+    border-radius: 4px;
+    text-indent: 8px;
+    background: white;
+    line-height: 25px;
+    font-size: 17px;
+}
+
+.dialog input:focus {
+    border: 1px solid black;
+}
+
+.dialog .content .message {
+    max-width: 500px;
+}
+
+#menu {
+    background: white;
+    left: 0;
+    top: 0;
+    width: auto;
+    height: 100%;
+    position: absolute;
+    font-weight: normal;
+    border: 0;
+    margin: 0;
+    font-size: 15px;
+    margin-left: -300px;
+    transition: all 0.4s;
+}
+
+#overlay.show #menu {
+    margin-left: 0;
+    transition: all 0.4s;
+}
+
+#menu .caption {
+    background: white;
+    margin: 10px;
+    color: black;
+    font-size: 19px;
+    font-weight: normal;
+    border-bottom: 1px solid rgb(39, 39, 39);
+    height: 28px;
+    line-height: 19px;
+    text-indent: 0;
+}
+
+#menu .content {
+    color: rgb(39, 39, 39);
+    width: auto;
+    padding: 0;
+}
+
+#menu .option {
+    cursor: pointer;
+    padding-left: 16px;
+    padding-right: 24px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 19px;
+}
+
+#menu .option:hover {
+    color: white;
+    background: steelblue;
+}
+
+#menu .option .fa {
+    line-height: 40px;
+    margin-right: 8px;
+}
+
+
+#profit .groupbox {
+    width: 240px;
+    margin: 10px;
+    border: 1px solid #b8d0e3;
+    padding: 8px;
+}
+
+#profit .groupbox.estimated {
+    float: left;
+    margin-left: 0;
+}
+
+#profit .groupbox.actual {
+    float: right;
+    margin-right: 0;
+}
+
+#profit .groupbox .groupbox-caption {
+    background: #f0f0f0;
+    position: relative;
+    top: -21px;
+    display: inline-block;
+    padding: 4px;
+    padding-bottom: 0;
+    margin-bottom: -14px;
+}
+
+#profit .groupbox .details {
+    text-align: right;
+}
+
+#profit .groupbox .details span {
+    display: inline-block;
+    width: 75px;
+}
+
+#profit .groupbox .details.first {
+    margin-top: -10px;
+}
+
+#profit .groupbox .details.last {
+    border-top: 1px solid #89a9c3;
+    margin-top: 5px;
+    padding-top: 5px;
+    font-weight: bold;
+}
+
+#viewer {
+    overflow: visible;
+    border: 1px solid white;
+    margin: 0;
+    padding: 0;
+    background: #efefef;
+    margin-top: -15px;
+}
+
+#viewer .fa {
+    pointer-events: none;
+}
+
+#viewer .close {
+    position: absolute;
+    right: -1px;
+    top: -1px;
+    width: 26px;
+    height: 27px;
+    background: #efefef;
+    border-bottom-left-radius: 12px;
+    text-align: center;
+    line-height: 28px;
+    transition: color 0.2s;
+    cursor: pointer;
+}
+
+#viewer .close:hover {
+    color: red;
+    transition: color 0.2s;
+}
+
+#viewer .close .fa:before {
+    font-size: 24px;
+    line-height: 28px;
+    margin-left: 1px;
+}
+
+#viewer .caption {
+    display: none;
+}
+
+#viewer .content {
+    margin: 0;
+    padding: 10px;
+    padding-bottom: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width 0.3s, height 0.3s;
+}
+
+#viewer .content .summary {
+    position: absolute;
+    left: 0;
+    bottom: -36px;
+    background: #efefef;
+    color: black;
+    border: 1px solid black;
+    height: 26px;
+    display: inline-block;
+}
+
+#viewer .content .summary.loading {
+    display: none;
+}
+
+#viewer .content a {
+    display: none;
+    float: left;
+    color: #176392;
+    margin-left: 10px;
+    line-height: 28px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#viewer .content a:hover {
+    text-decoration: underline;
+}
+
+#viewer .content .words {
+    float: left;
+    white-space: nowrap;
+    margin-left: 10px;
+    line-height: 26px;
+}
+
+#viewer .content .extra {
+    float: left;
+    white-space: nowrap;
+    margin-left: 10px;
+    margin-right: 10px;
+    line-height: 27px;
+}
+
+#viewer .prior, #viewer .next {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5);
+    width : 25px;
+    height: 50px;
+    top: 50%;
+    margin-top: -25px;
+    text-align: center;
+    line-height: 50px;
+    transition: color 0.2s;
+    cursor: pointer;
+}
+
+#viewer .prior:hover, #viewer .next:hover {
+    color: red;
+    transition: color 0.2s;
+}
+
+#viewer .busy {
+    width: 80px;
+    height: 80px;
+    color: darkred;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -40px;
+    margin-left: -40px;
+    display: block;
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 99;
+}
+
+#viewer .busy.loading {
+    opacity: 1;
+}
+
+#viewer .busy .fa:before {
+    line-height: 80px;
+}
+
+#viewer .prior {
+    left: -30px;
+}
+
+#viewer .next {
+    right: -30px;
+}
+
+#viewer button {
+    display: none;
+}
+
+.formBlock {
+    font-weight: normal; 
+    border: 1px solid #cddcec;
+    border-radius: 4px;
+    background:#f6fafe;
+    width: 400px;
+    margin: auto;
+    margin-top: 82px;
+    overflow: hidden;
+ }
+
+.formBlock h1 {
+    font-size: 17px;
+    font-weight: bolder;
+    text-align: center;
+    border-bottom: 1px solid #4f9789;
+    color: white;
+    text-shadow:1px 0 black;
+    margin: 0;
+    background: linear-gradient(to top, #396da4 , #6d9acb);
+    line-height: 29px;
+}
+
+.formBlock form {
+    padding: 10px;
+}    
+
+.formBlock textarea:focus, .formBlock input:focus, .formBlock  button:focus {
+    outline: none;
+}
+
+.formBlock input {
+    background: white;
+    border: 1px solid #cddcec;
+    border-radius: 4px;
+    width: 100%;
+    height: 1.5em;
+    display: block;
+    margin-bottom: 1em;
+    margin-top: 0.25em;
+    text-indent: 0.5em;
+    transition: all 0.2s;
+    color: black;
+    font-weight: normal;
+}
+
+.formBlock button {
+    float: right;
+    color: white;
+    border: 1px solid silver;
+    background: linear-gradient(to top, #396da4 , #5e9bdd);
+    border-radius: 4px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 25px;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.formBlock button:hover {
+    border: 1px solid orange;
+}
+
+.formBlock button:active {
+    border: 1px solid #7d6f6f;
+    background: linear-gradient(to top, #396da4 , #436a95);
+}
+
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    from {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-100px);
+    }
+    75% {
+        transform: translateX(100px);
+    }
+    to {
+        transform: translateX(0);
+    }
+}

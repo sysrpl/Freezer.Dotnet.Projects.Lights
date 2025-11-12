@@ -1,0 +1,479 @@
+#settings #theme>div.selected {
+    border: 2px solid white;
+}
+
+#settings #theme>div.blue {
+    background: #4f7b96;
+}
+
+#settings #theme>div.orange {
+    background: #cf935c;
+}
+
+#settings #theme>div.green {
+    background: #528b46;
+}
+
+#settings #theme>div.purple {
+    background: #6d44a1;
+}
+
+/* blue */
+
+body.blue  {
+    color: #a2cfea;
+}
+
+body.blue #music #playlist .item {
+    border-top: 2px solid #a2cfea;
+    border-bottom: 2px solid #a2cfea;
+    color: #a2cfea;
+}
+
+body.blue #music #playlist .item.selected {
+    color: black;
+    background-color: #a2cfea;
+}
+
+body.blue #music #playlist .item:nth-child(1) {
+    border-left: 2px solid #a2cfea;
+}
+
+body.blue #music #playlist .item:nth-child(5) {
+    border-right: 2px solid #a2cfea;
+}
+
+body.blue #webcontrol svg .normal {
+    fill: #a2cfea;
+}
+
+body.blue #webcontrol svg .normal:active {
+    fill: #2288c3;
+}
+
+body.blue #movies .switch {
+    background: #a2cfea;
+}
+
+body.blue #movies .switch:active {
+    background: #2288c3;
+}
+
+body.blue #caption {
+    background: #2288c3;
+    background: linear-gradient(0deg, rgba(34, 136, 195, 1) 0%, rgba(19, 66, 97, 1) 100%);
+}
+
+body.blue #settings .group .label {
+    background-color: #a2cfea;
+}
+
+body.blue #caption span:active {
+    background-color: #0d3f5b;
+    border: 1px solid #071823;
+}
+
+body.blue #icons .item {
+    color: #a2cfea;
+}
+
+body.blue #icons .item:active {
+    background-color: #2288c3;
+}
+
+body.blue #effects #colors div {
+    border-color: #164967;
+}
+
+body.blue .scrollarea {
+    color: #a2cfea;
+}
+
+body.blue #paint .outline .blend {
+    background: #a2cfea;
+}
+
+body.blue .scrollbox #effects>div.selected {
+    border: 1px solid #2288c3;
+}
+
+body.blue .selectable.selected {
+    border: 1px solid #2288c3;
+}
+
+body.blue .scrollbox .lines>div.selected {
+    border: 1px solid #2288c3;
+}
+
+body.blue .toggle.enabled {
+    border: 2px solid #a2cfea;
+}
+
+body.blue .toggle.enabled .knob {
+    background: #a2cfea;
+}
+
+body.blue .slider {
+    border: 2px solid #a2cfea;
+}
+
+body.blue .slider .knob {
+    background-color: #a2cfea;
+}
+
+body.blue #effects .preview {
+    border: 1px solid #a2cfea;
+}
+
+body.blue div.button {
+    background-color: #a2cfea;
+}
+
+body.blue #folders .folder .count {
+    background-color: #a2cfea;
+}
+
+/* orange */
+
+body.orange  {
+    color: #e5c2a2;
+}
+
+body.orange #music #playlist .item {
+    border-top: 2px solid #e5c2a2;
+    border-bottom: 2px solid #e5c2a2;
+    color: #e5c2a2;
+}
+
+body.orange #music #playlist .item.selected {
+    color: black;
+    background-color: #e5c2a2;
+}
+
+body.orange #music #playlist .item:nth-child(1) {
+    border-left: 2px solid #e5c2a2;
+}
+
+body.orange #music #playlist .item:nth-child(5) {
+    border-right: 2px solid #e5c2a2;
+}
+
+body.orange #webcontrol svg .normal {
+    fill: #e5c2a2;
+}
+
+body.orange #webcontrol svg .normal:active {
+    fill: #e78960;
+}
+
+body.orange #movies .switch {
+    background: #e5c2a2;
+}
+
+body.orange #movies .switch:active {
+    background: #e78960;
+}
+
+body.orange #caption {
+    background: #e78960;
+    background: linear-gradient(0deg, rgb(195, 120, 44) 0%, rgb(80, 41, 7) 100%);
+}
+
+body.orange #caption span:active {
+    background-color: #8e5015;
+    border: 1px solid #2b1506;
+}
+
+body.orange #icons .item {
+    color: #e5c2a2;
+}
+
+body.orange #settings .group .label {
+    background-color: #e5c2a2;
+}
+
+body.orange #icons .item:active {
+    background-color: #774a1f;
+}
+
+body.orange #effects #colors div {
+    border-color: #3a2510;
+}
+
+body.orange .scrollarea {
+    color: #e5c2a2;
+}
+
+body.orange #paint .outline .blend {
+    background: #e5c2a2;
+}
+
+body.orange .scrollbox #effects>div.selected {
+    border: 1px solid #e5c2a2;
+}
+
+body.orange .selectable.selected {
+    border: 1px solid #e5c2a2;
+}
+
+body.orange .scrollbox .lines>div.selected {
+    border: 1px solid #bd6e3f;
+}
+
+body.orange .toggle.enabled {
+    border: 2px solid #e5c2a2;
+}
+
+body.orange .toggle.enabled .knob {
+    background: #e5c2a2;
+}
+
+body.orange .slider {
+    border: 2px solid #e5c2a2;
+}
+
+body.orange .slider .knob {
+    background-color: #e5c2a2;
+}
+
+body.orange #effects .preview {
+    border: 1px solid #e5c2a2;
+}
+
+body.orange div.button {
+    background-color: #e5c2a2;
+}
+
+body.orange #folders .folder .count {
+    background-color: #e5c2a2;
+}
+
+/* green */
+
+body.green  {
+    color: #95d191;
+}
+
+body.green #music #playlist .item {
+    border-top: 2px solid #95d191;
+    border-bottom: 2px solid #95d191;
+    color: #95d191;
+}
+
+body.green #music #playlist .item.selected {
+    color: black;
+    background-color: #95d191;
+}
+
+body.green #music #playlist .item:nth-child(1) {
+    border-left: 2px solid #95d191;
+}
+
+body.green #music #playlist .item:nth-child(5) {
+    border-right: 2px solid #95d191;
+}
+
+body.green  #webcontrol svg .normal {
+    fill: #95d191;
+}
+
+body.green #webcontrol svg .normal:active {
+    fill: #208b19;
+}
+
+body.green #movies .switch {
+    background: #95d191;
+}
+
+body.green #movies .switch:active {
+    background: #208b19;
+}
+
+body.green #caption {
+    background: #208b19;
+    background: linear-gradient(0deg, rgb(99, 200, 113) 0%, rgb(12, 59, 15) 100%);
+}
+
+body.green #caption span:active {
+    background-color: #185713;
+    border: 1px solid #132806;
+}
+
+body.green #icons .item {
+    color: #95d191;
+}
+
+body.green #settings .group .label {
+    background-color: #95d191;
+}
+
+body.green #icons .item:active {
+    background-color: #0d541e;
+}
+
+body.green #effects #colors div {
+    border-color: #094517;
+}
+
+body.green .scrollarea {
+    color: #95d191;
+}
+
+body.green #paint .outline .blend {
+    background: #95d191;
+}
+
+body.green .scrollbox #effects>div.selected {
+    border: 1px solid #1e7f22;
+}
+
+body.green .selectable.selected {
+    border: 1px solid #1e7f22;
+}
+
+body.green .scrollbox .lines>div.selected {
+    border: 1px solid #1e7f22;
+}
+
+body.green .toggle.enabled {
+    border: 2px solid #95d191;
+}
+
+body.green .toggle.enabled .knob {
+    background: #95d191;
+}
+
+body.green .slider {
+    border: 2px solid #95d191;
+}
+
+body.green .slider .knob {
+    background-color: #95d191;
+}
+
+body.green #effects .preview {
+    border: 1px solid #95d191;
+}
+
+body.green div.button {
+    background-color: #95d191;
+}
+
+body.green #folders .folder .count {
+    background-color: #95d191;
+}
+
+/* purple */
+
+body.purple  {
+    color: #d17bd9;
+}
+
+body.purple #music #playlist .item {
+    border-top: 2px solid #d17bd9;
+    border-bottom: 2px solid #d17bd9;
+    color: #d17bd9;
+}
+
+body.purple #music #playlist .item.selected {
+    color: black;
+    background-color: #d17bd9;
+}
+
+body.purple #music #playlist .item:nth-child(1) {
+    border-left: 2px solid #d17bd9;
+}
+
+body.purple #music #playlist .item:nth-child(5) {
+    border-right: 2px solid #d17bd9;
+}
+
+body.purple  #webcontrol svg .normal {
+    fill: #d17bd9;
+}
+
+body.purple #webcontrol svg .normal:active {
+    fill: #6b167a;
+}
+
+body.purple #movies .switch {
+    background: #d17bd9;
+}
+
+body.purple #movies .switch:active {
+    background: #6b167a;
+}
+
+body.purple #caption {
+    background: #6b167a;
+    background: linear-gradient(0deg, rgb(136, 31, 131) 0%, rgb(46, 21, 46) 100%);
+}
+
+body.purple #caption span:active {
+    background-color: #470e4d;
+    border: 1px solid #28051f;
+}
+
+body.purple #icons .item {
+    color: #d17bd9;
+}
+
+body.purple #settings .group .label {
+    background-color: #d17bd9;
+}
+
+body.purple #icons .item:active {
+    background-color: #650c76;
+}
+
+body.purple #effects #colors div {
+    border-color: #470a54;
+}
+
+body.purple .scrollarea {
+    color: #d17bd9;
+}
+
+body.purple #paint .outline .blend {
+    background: #d17bd9;
+}
+
+body.purple .scrollbox #effects>div.selected {
+    border: 1px solid #b844b6;
+}
+
+body.purple .selectable.selected {
+    border: 1px solid #b844b6;
+}
+
+body.purple .scrollbox .lines>div.selected {
+    border: 1px solid #b844b6;
+}
+
+body.purple .toggle.enabled {
+    border: 2px solid #d17bd9;
+}
+
+body.purple .toggle.enabled .knob {
+    background: #d17bd9;
+}
+
+body.purple .slider {
+    border: 2px solid #d17bd9;
+}
+
+body.purple .slider .knob {
+    background-color: #d17bd9;
+}
+
+body.purple #effects .preview {
+    border: 1px solid #d17bd9;
+}
+
+body.purple div.button {
+    background-color: #d17bd9;
+}
+
+body.purple #folders .folder .count {
+    background-color: #d17bd9;
+}

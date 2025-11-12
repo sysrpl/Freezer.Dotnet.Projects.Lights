@@ -1,0 +1,18 @@
+{
+  "movie_id": "tt0083944",
+  "title": "First Blood",
+  "year": "1982",
+  "director": "Ted Kotcheff",
+  "genre": "Action, Adventure, Thriller",
+  "rated": "R",
+  "actors": [
+    "Sylvester Stallone",
+    "Brian Dennehy",
+    "Richard Crenna"
+  ],
+  "plot": "A veteran Green Beret is forced by a cruel Sheriff and his deputies to flee into the mountains and wage an escalating one-man war against his pursuers.",
+  "runtime": "93 min",
+  "critic_score": "86%",
+  "imdb_rating": "7.7",
+  "poster_url": "https://m.media-amazon.com/images/M/MV5BYzc4ZmQ5YzEtYTQzYy00ZDdiLWI2NmQtZTA3MzM1ZGIyYmUzXkEyXkFqcGc@._V1_SX300.jpg"
+}

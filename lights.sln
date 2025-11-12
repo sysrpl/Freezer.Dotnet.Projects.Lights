@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codebot.Web", "..\..\Codebot\Codebot.Web\Codebot.Web.csproj", "{07E10D2B-0FDF-4751-9C7D-033842D57D31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codebot.Raspberry.Board", "..\..\Codebot\Codebot.Raspberry\Codebot.Raspberry.Board\Codebot.Raspberry.Board.csproj", "{1974C32F-7136-4E95-8AD3-BA22F68E3A68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codebot.Raspberry", "..\..\Codebot\Codebot.Raspberry\Codebot.Raspberry\Codebot.Raspberry.csproj", "{D11A24E8-9BC6-427B-A002-224FC32A4AB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws28xx", "..\..\Codebot\Codebot.Raspberry\Codebot.Raspberry.Device\Ws28xx\Ws28xx.csproj", "{855F7BB3-D085-43E4-A1CD-51E6F46284C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDL2-CS", "..\..\Libraries\SDL2-CS\SDL2-CS.csproj", "{9088C194-6E2D-4CB7-B63B-5E157FD8C9A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lights", "lights\lights.csproj", "{D68D9E89-A19A-4FEB-BBE9-379115DD6C7E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{07E10D2B-0FDF-4751-9C7D-033842D57D31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07E10D2B-0FDF-4751-9C7D-033842D57D31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07E10D2B-0FDF-4751-9C7D-033842D57D31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07E10D2B-0FDF-4751-9C7D-033842D57D31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1974C32F-7136-4E95-8AD3-BA22F68E3A68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1974C32F-7136-4E95-8AD3-BA22F68E3A68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1974C32F-7136-4E95-8AD3-BA22F68E3A68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1974C32F-7136-4E95-8AD3-BA22F68E3A68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D11A24E8-9BC6-427B-A002-224FC32A4AB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D11A24E8-9BC6-427B-A002-224FC32A4AB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D11A24E8-9BC6-427B-A002-224FC32A4AB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D11A24E8-9BC6-427B-A002-224FC32A4AB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{855F7BB3-D085-43E4-A1CD-51E6F46284C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{855F7BB3-D085-43E4-A1CD-51E6F46284C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{855F7BB3-D085-43E4-A1CD-51E6F46284C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{855F7BB3-D085-43E4-A1CD-51E6F46284C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBED6480-0B08-4073-8C61-F4DA172A9182}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBED6480-0B08-4073-8C61-F4DA172A9182}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBED6480-0B08-4073-8C61-F4DA172A9182}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBED6480-0B08-4073-8C61-F4DA172A9182}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D68D9E89-A19A-4FEB-BBE9-379115DD6C7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D68D9E89-A19A-4FEB-BBE9-379115DD6C7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D68D9E89-A19A-4FEB-BBE9-379115DD6C7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D68D9E89-A19A-4FEB-BBE9-379115DD6C7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9088C194-6E2D-4CB7-B63B-5E157FD8C9A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9088C194-6E2D-4CB7-B63B-5E157FD8C9A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9088C194-6E2D-4CB7-B63B-5E157FD8C9A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9088C194-6E2D-4CB7-B63B-5E157FD8C9A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

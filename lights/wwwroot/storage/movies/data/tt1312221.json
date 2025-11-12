@@ -1,0 +1,18 @@
+{
+  "movie_id": "tt1312221",
+  "title": "Frankenstein",
+  "year": "2025",
+  "director": "Guillermo del Toro",
+  "genre": "Drama, Fantasy, Horror",
+  "rated": "R",
+  "actors": [
+    "Mia Goth",
+    "Burn Gorman",
+    "Charles Dance"
+  ],
+  "plot": "A brilliant but egotistical scientist brings a creature to life in a monstrous experiment that ultimately leads to the undoing of both the creator and his tragic creation.",
+  "runtime": "149 min",
+  "critic_score": "87%",
+  "imdb_rating": "7.7",
+  "poster_url": "https://m.media-amazon.com/images/M/MV5BYzYzNDYxMTQtMTU4OS00MTdlLThhMTQtZjI4NGJmMTZmNmRiXkEyXkFqcGc@._V1_SX300.jpg"
+}
