@@ -144,8 +144,6 @@ public static class Program
         App.Domain = "shawshack.club";
         App.CaptivePortal = !fake;
         Events = App.RegisterEvent("/events");
-        //App.RegisterEvent("/music");
-        //App.RegisterEvent("/movies");
         App.OnBeginRequest += HandleBeginRequest;
         App.Run(args);
         LightState.Current.Running = false;

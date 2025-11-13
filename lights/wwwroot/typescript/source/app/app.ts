@@ -119,6 +119,11 @@ function main() {
     initMovies();
     initSettings();
 
+    function reload() {
+        fetch(`/?action=stop`).then(() => location.reload());
+    }
+
+    Messages.subscribe("reload", null, reload);
     Messages.connect("/events");
 
     function checkHash() {

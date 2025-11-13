@@ -1,6 +1,6 @@
 namespace Lights;
 
-[DefaultPage("/typescript/content/home.html")]
+[DefaultPage("/typescript/content/home.html", IsTemplate = true)]
 public partial class HomePage : PageHandler
 {
     static readonly LightState state;
@@ -26,6 +26,9 @@ public partial class HomePage : PageHandler
         else
             TestSocket.Connect(host);
     }
+
+    [Action("reload")]
+    public void Reload() => _ = Program.Events.Broadcast("reload", "true");
 
     public string NoCache
     {

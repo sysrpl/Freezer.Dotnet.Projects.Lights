@@ -2192,7 +2192,7 @@ ${f.checked[playlistIndex][i] ? "fa-square-check" : "fa-square"}"></i>${f.songs[
         }
     }
     function musicRead(song) {
-        current = song;
+        current = song[0];
         if (currentTimer)
             clearTimeout(currentTimer);
         currentTimer = setTimeout(musicChange, 500);
@@ -2645,6 +2645,10 @@ function main() {
     initMusic();
     initMovies();
     initSettings();
+    function reload() {
+        fetch(`/?action=stop`).then(() => location.reload());
+    }
+    Messages.subscribe("reload", null, reload);
     Messages.connect("/events");
     function checkHash() {
         let hash = window.location.hash.slice(1);

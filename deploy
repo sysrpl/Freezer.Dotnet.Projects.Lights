@@ -1,6 +1,7 @@
 #!/bin/bash
 #DST="mattshaw"
 DST="piphi"
+SUB=test
 
 #cd /home/gigauser/Development/Dotnet/Projects/Lights/lights
 #dotnet build
@@ -15,4 +16,6 @@ rsync -av ~/Development/Dotnet/Codebot/Codebot.Web/ $DST:/home/pi/Development/Do
 rsync -av ~/Development/Dotnet/Projects/Lights/lights/ $DST:/home/pi/Development/Dotnet/Projects/Lights/lights
 sleep 1
 ssh $DST 'sudo systemctl restart lights'
+sleep 10
+curl -s -o /dev/null https://$SUB.shawshack.club/?action=reload
 #ssh $DST 'sudo reboot'
