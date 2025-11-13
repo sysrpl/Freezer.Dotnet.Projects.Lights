@@ -1,7 +1,6 @@
 /// <reference path='../libs/codebot/codebot.ts' />
 
 function main() {
-
     let title = get("#movie-title") as HTMLInputElement;
     let year = get("#movie-year") as HTMLInputElement;
     let search = get("#search-btn")  as HTMLElement;
@@ -41,16 +40,10 @@ function main() {
         imdb_rating: string;
     }
 
-    function isStringArray(m: Movie | string[]): m is string[] {
-        return Array.isArray(m);
+    function movieReceived(m: Movie) {
+        result.innerHTML = m.plot;
     }
 
-    function movieReceived(m: Movie | string[]) {
-        if (isStringArray(m))
-            result.innerHTML = m[0];
-        else
-            result.innerHTML = m.plot;
-    }
-
-    subscribeEvent("/movies", movieReceived);
+    Messages.subscribe("movies", null, movieReceived);
+    Messages.connect("/events");
 }

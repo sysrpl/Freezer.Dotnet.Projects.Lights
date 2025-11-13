@@ -100,7 +100,7 @@ public class AudioEngine
             music = new AudioEngine(fileName);
             musicTask = Task.Run(music.MusicTask);
             playtime = Stopwatch.StartNew();
-           _ = App.FindEvent("/music").Broadcast($"[ \"{song}\"  ]");
+            _ = Program.Events.Broadcast("music", $"'{song}'");
         }
     }
 
@@ -119,7 +119,7 @@ public class AudioEngine
             {
                 music = null;
                 musicTask = null;
-               _ = App.FindEvent("/music").Broadcast("[ \"\" ]");
+                _ = Program.Events.Broadcast("music", "''");
             }
     }
 
@@ -577,7 +577,7 @@ public class AudioEngine
             musicTask = null;
             music = null;
             playing = false;
-            _ = App.FindEvent("/music").Broadcast($"[ \"\" ]");
+            _ = Program.Events.Broadcast("music", "''");
         }
     }
 }

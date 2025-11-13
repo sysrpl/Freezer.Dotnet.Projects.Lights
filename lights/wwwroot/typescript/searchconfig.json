@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "sourceMap": true,
+        "outFile": "build/search.js",
+        "removeComments": true,
+        "lib": ["dom", "es6"]
+    },
+    "include": [
+        "**/search/search.ts"
+    ]
+}

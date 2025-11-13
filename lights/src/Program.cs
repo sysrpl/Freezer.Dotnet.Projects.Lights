@@ -128,6 +128,8 @@ public static class Program
             SleepMonitor.Touch();
     }
 
+    public static ServiceEvent Events { get; private set; }
+
     public static void Main(string[] args)
     {
         // This setting enforces external daily code authentication
@@ -141,8 +143,9 @@ public static class Program
 #endif
         App.Domain = "shawshack.club";
         App.CaptivePortal = !fake;
-        App.RegisterEvent("/music");
-        App.RegisterEvent("/movies");
+        Events = App.RegisterEvent("/events");
+        //App.RegisterEvent("/music");
+        //App.RegisterEvent("/movies");
         App.OnBeginRequest += HandleBeginRequest;
         App.Run(args);
         LightState.Current.Running = false;

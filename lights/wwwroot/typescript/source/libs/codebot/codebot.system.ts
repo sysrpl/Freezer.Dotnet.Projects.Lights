@@ -400,8 +400,8 @@ function fetchPost(request: string, body: object | string) {
 /**
  * Creates a lasting connection to the server allowing you to receive event notifications
  * @param endpoint The endpoint location on the server broadcasting events
- * @param onevent Your event handler for any new events that are receieved
- * @param onconnect Option event that is fired each time the connection is re-established
+ * @param onevent Your event handler for any messages that are receieved
+ * @param onconnect Optional event that is fired each time the connection is re-established
 }*/
 function subscribeEvent(endpoint: string, onevent: Action<any>, onconnect: Proc = null) {
     let eventSource = new EventSource(endpoint);

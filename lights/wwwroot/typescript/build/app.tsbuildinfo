@@ -1,0 +1,27 @@
+{
+  "bundle": {
+    "commonSourceDirectory": "../source",
+    "sourceFiles": [
+      "../source/libs/codebot/codebot.system.ts",
+      "../source/libs/codebot/codebot.dom.cookies.ts",
+      "../source/libs/codebot/codebot.dom.element.ts",
+      "../source/libs/codebot/codebot.webrequest.ts",
+      "../source/libs/codebot/codebot.time.ts",
+      "../source/libs/codebot/codebot.diagnostics.ts",
+      "../source/libs/codebot/codebot.text.ts",
+      "../source/libs/codebot/codebot.ts",
+      "../source/app/app.scroll.ts",
+      "../source/app/app.ts"
+    ],
+    "js": {
+      "sections": [
+        {
+          "pos": 0,
+          "end": 30789,
+          "kind": "text"
+        }
+      ]
+    }
+  },
+  "version": "4.2.3"
+}

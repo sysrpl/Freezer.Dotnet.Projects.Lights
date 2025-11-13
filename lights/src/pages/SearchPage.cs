@@ -123,12 +123,12 @@ public partial class SearchPage : PageHandler
                 }
             }
             Write(success);
+            _ = Program.Events.Broadcast("movies", s);
         }
         else
         {
             Write(notfound);
             s = notfound;
         }
-        _ = App.FindEvent("/movies").Broadcast(s);
     }
 }
