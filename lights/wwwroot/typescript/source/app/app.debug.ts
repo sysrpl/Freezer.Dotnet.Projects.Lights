@@ -1,4 +1,4 @@
-let debug: Action<string>;
+//let debug: Action<string>;
 
 function initDebug(enabled: boolean) {
 

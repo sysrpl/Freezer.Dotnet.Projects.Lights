@@ -79,6 +79,7 @@ class RectObject {
         return this.y + this.height;
     }
 }
+let debug = (s) => { };
 function isDefined(obj) {
     return obj !== undefined && obj !== null;
 }
@@ -220,27 +221,31 @@ function fetchPost(request, body) {
         body: s
     });
 }
-function subscribeEvent(endpoint, onevent, onconnect = null) {
-    let eventSource = new EventSource(endpoint);
-    let retrying = false;
-    let healthCheck = setInterval(() => {
-        if (eventSource.readyState === EventSource.CLOSED && !retrying) {
-            retrying = true;
-            clearInterval(healthCheck);
+function subscribeEvent(endpoint, onconnect, onmessage) {
+    let eventSource = null;
+    let dead = false;
+    function recreate() {
+        eventSource = new EventSource(endpoint);
+        eventSource.onopen = () => onconnect === null || onconnect === void 0 ? void 0 : onconnect();
+        eventSource.onmessage = (e) => onmessage === null || onmessage === void 0 ? void 0 : onmessage(JSON.parse(e.data));
+        eventSource.onerror = () => dead = true;
+    }
+    function heartbeat() {
+        if (eventSource.readyState === EventSource.CLOSED || dead) {
             eventSource.close();
-            setTimeout(() => subscribeEvent(endpoint, onevent, onconnect), 2000);
+            dead = false;
+            recreate();
         }
-    }, 10000);
-    eventSource.onopen = () => onconnect === null || onconnect === void 0 ? void 0 : onconnect();
-    eventSource.onmessage = e => onevent(JSON.parse(e.data));
-    eventSource.onerror = () => {
-        if (eventSource.readyState === EventSource.CLOSED && !retrying) {
-            retrying = true;
-            clearInterval(healthCheck);
-            eventSource.close();
-            setTimeout(() => subscribeEvent(endpoint, onevent, onconnect), 2000);
+    }
+    document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") {
+            eventSource === null || eventSource === void 0 ? void 0 : eventSource.close();
+            dead = false;
+            recreate();
         }
-    };
+    });
+    recreate();
+    setInterval(heartbeat, 5000);
 }
 function addCookie(name, value, days) {
     let expires;
@@ -970,38 +975,21 @@ class EventManager {
 }
 class Messages {
     static notifyConnect() {
+        var _a;
         for (const i of Messages.items)
-            i === null || i === void 0 ? void 0 : i.onconnect();
+            (_a = i.onconnect) === null || _a === void 0 ? void 0 : _a.call(i);
     }
     static notifyMessage(m) {
+        var _a;
         for (const i of Messages.items)
             if (i.name == m.name)
-                i === null || i === void 0 ? void 0 : i.onmessage(m.payload);
+                (_a = i.onmessage) === null || _a === void 0 ? void 0 : _a.call(i, m.payload);
     }
     static subscribe(name, onconnect, onmessage) {
         Messages.items.push({ "name": name, "onconnect": onconnect, "onmessage": onmessage });
     }
     static connect(endpoint) {
-        let eventSource = new EventSource(endpoint);
-        let retrying = false;
-        let healthCheck = setInterval(() => {
-            if (eventSource.readyState === EventSource.CLOSED && !retrying) {
-                retrying = true;
-                clearInterval(healthCheck);
-                eventSource.close();
-                setTimeout(() => Messages.connect(endpoint), 2000);
-            }
-        }, 10000);
-        eventSource.onopen = () => Messages.notifyConnect();
-        eventSource.onmessage = e => Messages.notifyMessage(JSON.parse(e.data));
-        eventSource.onerror = () => {
-            if (eventSource.readyState === EventSource.CLOSED && !retrying) {
-                retrying = true;
-                clearInterval(healthCheck);
-                eventSource.close();
-                setTimeout(() => Messages.connect(endpoint), 2000);
-            }
-        };
+        subscribeEvent(endpoint, Messages.notifyConnect, Messages.notifyMessage);
     }
 }
 Messages.items = [];

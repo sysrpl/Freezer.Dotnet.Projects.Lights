@@ -69,6 +69,7 @@ function initMovies() {
     }
 
     switcher.addEventListener("click", switcherClick);
+
     function movieReceived(m: Movie) {
         title.innerText = `${m.title} (${m.year})`;
         poster.src = `/storage/movies/data/${m.movie_id}.jpg`;
@@ -107,7 +108,6 @@ Summary: ${m.plot}`;
         fetchJson("/search/?action=search-get-movie-list", movieListReceived);
     }
 
-    // subscribeEvent("/movies", movieReceived, movieConnect);
     Messages.subscribe("movies", movieConnect, movieReceived);
 
     switchMovies = function() {

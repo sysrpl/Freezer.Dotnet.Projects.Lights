@@ -149,6 +149,8 @@ type Func<T> = () => T;
 type Ctor<T> = { new(): T; };
 type Nullable<T> = T | undefined | void;
 
+let debug: Action<string> = (s) => { };
+
 /** Returns true if a value is not undefined and not null.
  * @param obj The value to test.
  */
@@ -400,30 +402,36 @@ function fetchPost(request: string, body: object | string) {
 /**
  * Creates a lasting connection to the server allowing you to receive event notifications
  * @param endpoint The endpoint location on the server broadcasting events
- * @param onevent Your event handler for any messages that are receieved
- * @param onconnect Optional event that is fired each time the connection is re-established
-}*/
-function subscribeEvent(endpoint: string, onevent: Action<any>, onconnect: Proc = null) {
-    let eventSource = new EventSource(endpoint);
-    let retrying = false;
+ * @param onconnect Your event that handler is fired each time the connection is re-established
+ * @param onmessage Your event handler for any messages that are received
+ */
+function subscribeEvent(endpoint: string, onconnect: Proc | null, onmessage: Action<any> | null) {
+    let eventSource = null;
+    let dead = false;
 
-    let healthCheck = setInterval(() => {
-        if (eventSource.readyState === EventSource.CLOSED && !retrying) {
-            retrying = true;
-            clearInterval(healthCheck);
-            eventSource.close();
-            setTimeout(() => subscribeEvent(endpoint, onevent, onconnect), 2_000);
-        }
-    }, 10_000);
+    function recreate() {
+        eventSource = new EventSource(endpoint);
+        eventSource.onopen = () => onconnect?.();
+        eventSource.onmessage = (e: MessageEvent) => onmessage?.(JSON.parse(e.data));
+        eventSource.onerror = () => dead = true;
+    }
 
-    eventSource.onopen = () => onconnect?.();
-    eventSource.onmessage = e => onevent(JSON.parse(e.data));
-    eventSource.onerror = () => {
-        if (eventSource.readyState === EventSource.CLOSED && !retrying) {
-            retrying = true;
-            clearInterval(healthCheck);
+    function heartbeat() {
+        if (eventSource.readyState === EventSource.CLOSED || dead) {
             eventSource.close();
-            setTimeout(() => subscribeEvent(endpoint, onevent, onconnect), 2_000);
+            dead = false;
+            recreate();
         }
-    };
+    }
+
+    document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") {
+            eventSource?.close();
+            dead = false;
+            recreate();
+        }
+    });
+
+    recreate();
+    setInterval(heartbeat, 5_000);
 }
