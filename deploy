@@ -4,19 +4,17 @@
 DST="piphi"
 SUB=test
 
-#cd /home/gigauser/Development/Dotnet/Projects/Lights/lights
-#dotnet build
-# --no-restore --no-dependencies
-#dotnet build -c Release
-# --no-restore --no-dependencies
+cd /home/gigauser/Development/Dotnet/Projects/Lights/lights
+dotnet build --no-restore --no-dependencies
+dotnet build -c Release --no-restore --no-dependencies
 #rsync -av ~/Development/Dotnet/Libraries/SDL2-CS/ $DST:/home/pi/Development/Dotnet/Libraries/SDL2-CS/
 # rsync -av ~/Development/Dotnet/Codebot/Codebot.Raspberry/ $DST:/home/pi/Development/Dotnet/Codebot/Codebot.Raspberry/
-rsync -av ~/Development/Dotnet/Codebot/Codebot.Web/ $DST:/home/pi/Development/Dotnet/Codebot/Codebot.Web/
+#rsync -av ~/Development/Dotnet/Codebot/Codebot.Web/ $DST:/home/pi/Development/Dotnet/Codebot/Codebot.Web/
 # rsync -av ~/Music/jukebox/ $DST:/home/pi/Music/jukebox/
 # ssh $DST 'rm /home/pi/Development/Dotnet/Projects/Lights/lights/private/music.json'
 rsync -av ~/Development/Dotnet/Projects/Lights/lights/ $DST:/home/pi/Development/Dotnet/Projects/Lights/lights
-sleep 1
-ssh $DST 'sudo systemctl restart lights'
-sleep 10
-curl -s -o /dev/null https://$SUB.shawshack.club/?action=reload
+#sleep 1
+#ssh $DST 'sudo systemctl restart lights'
+#sleep 10
+#curl -s -o /dev/null https://$SUB.shawshack.club/?action=reload
 #ssh $DST 'sudo reboot'

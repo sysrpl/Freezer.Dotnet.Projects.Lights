@@ -180,7 +180,7 @@ public class PixelBase
         offset = 0;
         if (dataLine == 1)
             offset = LightState.Current.D0.LightCount;
-        header.size =  Marshal.SizeOf<Header>() + Marshal.SizeOf<PixelData>() * count;
+        header.size = Marshal.SizeOf<Header>() + Marshal.SizeOf<PixelData>() * count;
         header.d0 = (byte)'D';
         header.d1 = (byte)'A';
         header.d2 = (byte)'T';
@@ -236,6 +236,8 @@ public class PixelBase
             obj.Seconds = seconds;
             if (AudioEngine.TryLock(obj.DrawVisuals))
             {
+                foreach (var p in obj.Pixels)
+                    obj.Intensity(p);
                 obj.Pixels.Update();
                 continue;
             }
