@@ -84,9 +84,9 @@ public partial class SearchPage : PageHandler
     [Action("search")]
     public void Search()
     {
-        const string invalid = "['invalid search']";
-        const string success = "['success']";
-        const string notfound = "['not found']";
+        const string invalid = "[\"invalid search\"]";
+        const string success = "[\"success\"]";
+        const string notfound = "[\"not found\"]";
         var title = Read("title").Trim();
         var year = ReadInt("year");
         if (string.IsNullOrWhiteSpace(title))
@@ -123,12 +123,11 @@ public partial class SearchPage : PageHandler
                 }
             }
             Write(success);
-            _ = Program.Events.Broadcast("movies", s);
+            Program.Events.Broadcast("movies", s);
         }
         else
         {
             Write(notfound);
-            s = notfound;
         }
     }
 }

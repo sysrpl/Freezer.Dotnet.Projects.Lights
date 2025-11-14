@@ -23,8 +23,6 @@ class EventManager {
     }
 }
 
-type AnyAction = Action<any>;
-
 interface NamedAction {
     name: string;
     onconnect: Proc | null,

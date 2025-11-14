@@ -148,6 +148,7 @@ type Action<T> = (t: T) => void;
 type Func<T> = () => T;
 type Ctor<T> = { new(): T; };
 type Nullable<T> = T | undefined | void;
+type AnyAction = Action<any>;
 
 let debug: Action<string> = (s) => { };
 
@@ -405,7 +406,7 @@ function fetchPost(request: string, body: object | string) {
  * @param onconnect Your event that handler is fired each time the connection is re-established
  * @param onmessage Your event handler for any messages that are received
  */
-function subscribeEvent(endpoint: string, onconnect: Proc | null, onmessage: Action<any> | null) {
+function subscribeEvent(endpoint: string, onconnect: Proc | null, onmessage: AnyAction | null) {
     let eventSource = null;
     let dead = false;
 
@@ -418,7 +419,7 @@ function subscribeEvent(endpoint: string, onconnect: Proc | null, onmessage: Act
 
     function heartbeat() {
         if (eventSource.readyState === EventSource.CLOSED || dead) {
-            eventSource.close();
+            eventSource?.close();
             dead = false;
             recreate();
         }

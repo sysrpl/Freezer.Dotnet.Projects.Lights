@@ -1,18 +1,18 @@
 {
-  "movie_id": "tt6966692",
-  "title": "Green Book",
-  "year": "2018",
-  "director": "Peter Farrelly",
-  "genre": "Biography, Comedy, Drama",
+  "movie_id": "tt0352248",
+  "title": "Cinderella Man",
+  "year": "2005",
+  "director": "Ron Howard",
+  "genre": "Biography, Drama, Romance",
   "rated": "PG-13",
   "actors": [
-    "Viggo Mortensen",
-    "Mahershala Ali",
-    "Linda Cardellini"
+    "Russell Crowe",
+    "Renée Zellweger",
+    "Craig Bierko"
   ],
-  "plot": "A working-class Italian-American bouncer becomes the driver for an African-American classical pianist on a tour of venues through the 1960s American South.",
-  "runtime": "130 min",
-  "critic_score": "77%",
-  "imdb_rating": "8.2",
-  "poster_url": "https://m.media-amazon.com/images/M/MV5BNDU5YTNmMmItN2QxNy00OGQ0LTg5MTctNzFmYjEzZjcwN2UwXkEyXkFqcGc@._V1_SX300.jpg"
+  "plot": "The true story of James J. Braddock, a supposedly washed-up boxer, who returned to the spotlight to win the heavyweight championship of the world.",
+  "runtime": "144 min",
+  "critic_score": "80%",
+  "imdb_rating": "8.0",
+  "poster_url": "https://m.media-amazon.com/images/M/MV5BYjQ3M2ZjMzYtNmQwNC00MjNkLTgzOTgtMjhjMDk0YzIzOWZkXkEyXkFqcGc@._V1_SX300.jpg"
 }

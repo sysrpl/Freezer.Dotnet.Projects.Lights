@@ -133,7 +133,7 @@ public static class Program
     public static void Main(string[] args)
     {
         // This setting enforces external daily code authentication
-        allowPublic = true;
+        allowPublic = false;
         var fake = !Device.IsPi;
         Task.Run(() => PixelBase.Run(0, fake));
         Task.Run(() => PixelBase.Run(1, fake));

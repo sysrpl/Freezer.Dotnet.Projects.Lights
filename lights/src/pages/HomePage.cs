@@ -28,7 +28,7 @@ public partial class HomePage : PageHandler
     }
 
     [Action("reload")]
-    public void Reload() => _ = Program.Events.Broadcast("reload", "true");
+    public void Reload() => Program.Events.Broadcast("reload", "true");
 
     public string NoCache
     {
