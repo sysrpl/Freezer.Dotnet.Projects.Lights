@@ -1,18 +1,18 @@
 {
-  "movie_id": "tt0352248",
-  "title": "Cinderella Man",
-  "year": "2005",
-  "director": "Ron Howard",
-  "genre": "Biography, Drama, Romance",
-  "rated": "PG-13",
+  "movie_id": "tt0071315",
+  "title": "Chinatown",
+  "year": "1974",
+  "director": "Roman Polanski",
+  "genre": "Drama, Mystery, Thriller",
+  "rated": "R",
   "actors": [
-    "Russell Crowe",
-    "Renée Zellweger",
-    "Craig Bierko"
+    "Jack Nicholson",
+    "Faye Dunaway",
+    "John Huston"
   ],
-  "plot": "The true story of James J. Braddock, a supposedly washed-up boxer, who returned to the spotlight to win the heavyweight championship of the world.",
-  "runtime": "144 min",
-  "critic_score": "80%",
-  "imdb_rating": "8.0",
-  "poster_url": "https://m.media-amazon.com/images/M/MV5BYjQ3M2ZjMzYtNmQwNC00MjNkLTgzOTgtMjhjMDk0YzIzOWZkXkEyXkFqcGc@._V1_SX300.jpg"
+  "plot": "A private detective hired to expose an adulterer in 1930s Los Angeles finds himself caught up in a web of deceit, corruption, and murder.",
+  "runtime": "130 min",
+  "critic_score": "98%",
+  "imdb_rating": "8.1",
+  "poster_url": "https://m.media-amazon.com/images/M/MV5BNmRmZTE0NmUtZjhiZi00MzQ3LTk3ZjctN2Q3ODYzY2U3MDk3XkEyXkFqcGc@._V1_SX300.jpg"
 }

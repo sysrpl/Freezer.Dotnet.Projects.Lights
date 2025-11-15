@@ -30,12 +30,18 @@ public static class TestSocket
             connected = true;
             try
             {
-                var endpoint = new IPEndPoint(IPAddress.Parse(host), port);
                 socket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
                 {
                     SendTimeout = 100
                 };
-                socket.Connect(endpoint);
+                var result = socket.BeginConnect(IPAddress.Parse(host), port, null, null);
+                bool success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromMilliseconds(500));
+                if (!success)
+                {
+                    Disconnect();
+                    return;
+                }
+                socket.EndConnect(result);
             }
             catch
             {
