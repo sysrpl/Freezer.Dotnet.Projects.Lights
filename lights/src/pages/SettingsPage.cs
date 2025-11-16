@@ -28,7 +28,7 @@ public partial class HomePage : PageHandler
     }
 
     [Action("settings-get-access-code")]
-    public void SettingsGetAccessCode() => Write($"[\"{Program.GetDailyCode()}\"]");
+    public void SettingsGetAccessCode() => Write($"[\"{Challenge.Cypher}\"]");
 
     [Action("settings-load")]
     public void SettingsLoad() => state.Load();

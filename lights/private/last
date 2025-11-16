@@ -1,18 +1,18 @@
 {
-  "movie_id": "tt0071315",
-  "title": "Chinatown",
-  "year": "1974",
-  "director": "Roman Polanski",
-  "genre": "Drama, Mystery, Thriller",
-  "rated": "R",
+  "movie_id": "tt0113243",
+  "title": "Hackers",
+  "year": "1995",
+  "director": "Iain Softley",
+  "genre": "Crime, Drama, Romance",
+  "rated": "PG-13",
   "actors": [
-    "Jack Nicholson",
-    "Faye Dunaway",
-    "John Huston"
+    "Jonny Lee Miller",
+    "Angelina Jolie",
+    "Jesse Bradford"
   ],
-  "plot": "A private detective hired to expose an adulterer in 1930s Los Angeles finds himself caught up in a web of deceit, corruption, and murder.",
-  "runtime": "130 min",
-  "critic_score": "98%",
-  "imdb_rating": "8.1",
-  "poster_url": "https://m.media-amazon.com/images/M/MV5BNmRmZTE0NmUtZjhiZi00MzQ3LTk3ZjctN2Q3ODYzY2U3MDk3XkEyXkFqcGc@._V1_SX300.jpg"
+  "plot": "Teenage hackers discover a criminal conspiracy with plans to use a computer virus that will capsize five oil tankers.",
+  "runtime": "105 min",
+  "critic_score": "34%",
+  "imdb_rating": "6.2",
+  "poster_url": "https://m.media-amazon.com/images/M/MV5BOGZkZTc2ZjItNzIzMS00ODRlLTliNjgtZjRmNzM2NjkzZTU1XkEyXkFqcGc@._V1_SX300.jpg"
 }

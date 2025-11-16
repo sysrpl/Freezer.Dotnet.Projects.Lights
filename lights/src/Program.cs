@@ -59,24 +59,6 @@ public static class Program
         return (today - year2000).Days;
     }
 
-    public static string GetDailyCode()
-    {
-        DateTime today = DateTime.Now;
-        // Day of month (01-31)
-        int day = today.Day;
-        // Month (01-12)
-        int month = today.Month;
-        // Last 2 digits of year
-        int year = today.Year % 100;
-        // Part 1: Day reversed (12 becomes 21)
-        int part1 = (day % 10) * 10 + (day / 10);
-        // Part 2: Month + Day (simple sum, mod 100 to keep 2 digits)
-        int part2 = (month + day) % 100;
-        // Part 3: Year digits swapped (25 becomes 52)
-        int part3 = (year % 10) * 10 + (year / 10);
-        return $"{part1:D2}{part2:D2}{part3:D2}";
-    }
-
     static void HandleBeginRequest(ContextEventArgs args)
     {
         var address = args.Context.Connection.RemoteIpAddress?.ToString();
@@ -99,10 +81,10 @@ public static class Program
                 }
                 local = address == wanAddress;
             }
-        local = local || ReadCookie(args.Context, AccessKey) == GetDailyCode();
+        local = local || ReadCookie(args.Context, AccessKey) == Challenge.Cypher;
         if (!local)
         {
-            var code = GetDailyCode();
+            var code = Challenge.Cypher;
             var query = args.Context.Request.QueryString.Value;
             if (string.IsNullOrWhiteSpace(query))
                 query = "";
@@ -133,7 +115,7 @@ public static class Program
     public static void Main(string[] args)
     {
         // This setting enforces external daily code authentication
-        allowPublic = false;
+        allowPublic = true;
         var fake = !Device.IsPi;
         Task.Run(() => PixelBase.Run(0, fake));
         Task.Run(() => PixelBase.Run(1, fake));
