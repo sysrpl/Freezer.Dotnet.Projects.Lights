@@ -10,44 +10,81 @@ import sys
 import requests
 from pathlib import Path
 from typing import Optional, Dict, Any
+import hashlib
 
 # Configuration
 API_KEY = "a20b9d4c"  # Get free API key from http://www.omdbapi.com/apikey.aspx
 BASE_URL = "http://www.omdbapi.com/"
 MASTER_FILE = "movies.json"
 MOVIE_DATA_DIR = "data"
+FIXES_FILE = "fixes.json"
 
 
 class MovieFetcher:
     def __init__(self, api_key: str):
         self.api_key = api_key
         self.master_data = self._load_master_file()
-        
+        self.fixes = self._load_fixes_file()
+
         # Create directory for movie data if it doesn't exist
         Path(MOVIE_DATA_DIR).mkdir(exist_ok=True)
-    
+
     def _load_master_file(self) -> Dict[str, Any]:
         """Load the master movies.json file or create if doesn't exist."""
         if os.path.exists(MASTER_FILE):
             with open(MASTER_FILE, 'r', encoding='utf-8') as f:
                 return json.load(f)
         return {"movies": []}
-    
+
+    def _load_fixes_file(self) -> list:
+        """Load the fixes.json file or return empty list if doesn't exist."""
+        if os.path.exists(FIXES_FILE):
+            try:
+                with open(FIXES_FILE, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except json.JSONDecodeError:
+                print(f"Warning: Could not parse {FIXES_FILE}, ignoring fixes")
+                return []
+        return []
+
+    def _apply_title_fix(self, title: str) -> str:
+        """Apply title fix if one exists for the search title."""
+        for fix in self.fixes:
+            if fix.get("search", "").lower() == title.lower():
+                fixed_title = fix.get("fix", title)
+                if fixed_title != title:
+                    print(f"Applying title fix: '{title}' -> '{fixed_title}'")
+                return fixed_title
+        return title
+
     def _save_master_file(self):
         """Save the master movies.json file."""
         with open(MASTER_FILE, 'w', encoding='utf-8') as f:
             json.dump(self.master_data, f, indent=2, ensure_ascii=False)
-    
-    def _find_cached_movie(self, title: str, year: Optional[str] = None) -> Optional[str]:
-        """Check if movie already exists in cache."""
+
+    def _generate_fake_imdb_id(self, title: str, year: Optional[str] = None) -> str:
+        """Generate a unique fake IMDb ID for movies not found."""
+        # Create a hash from title and year to ensure uniqueness
+        hash_input = f"{title.lower()}_{year or 'no_year'}"
+        hash_digest = hashlib.md5(hash_input.encode()).hexdigest()[:7]
+        # Use 'nf' prefix (not found) followed by hash to distinguish from real IMDb IDs
+        return f"nf{hash_digest}"
+
+    def _find_cached_movie(self, title: str, year: Optional[str] = None) -> Optional[Dict[str, Any]]:
+        """Check if movie already exists in cache. Returns dict with movie_id and found status."""
         title_lower = title.lower()
-        
+
         for movie in self.master_data["movies"]:
             if movie["title"].lower() == title_lower:
-                if year is None or movie.get("year") == year:
-                    return movie["movie_id"]
+                # Check year match
+                movie_year = str(movie.get("year", "")).strip()
+                if year is None or movie_year == str(year).strip() or movie_year == "Unknown":
+                    return {
+                        "movie_id": movie["movie_id"],
+                        "found": movie.get("found", True)  # Default to True for backwards compatibility
+                    }
         return None
-    
+
     def _fetch_movie_data(self, title: str, year: Optional[str] = None) -> Optional[Dict[str, Any]]:
         """Fetch movie data from OMDb API."""
         params = {
@@ -55,47 +92,47 @@ class MovieFetcher:
             "t": title,
             "type": "movie"
         }
-        
+
         if year:
             params["y"] = year
-        
+
         try:
             response = requests.get(BASE_URL, params=params, timeout=10)
             response.raise_for_status()
             data = response.json()
-            
+
             if data.get("Response") == "True":
                 return data
             else:
                 print(f"Error: {data.get('Error', 'Unknown error')}")
                 return None
-                
+
         except requests.exceptions.RequestException as e:
             print(f"Error fetching movie data: {e}")
             return None
-    
+
     def _download_poster(self, poster_url: str, movie_id: str) -> bool:
         """Download movie poster and save as movie_id.jpg."""
         if poster_url == "N/A":
             print("No poster available for this movie")
             return False
-        
+
         try:
             response = requests.get(poster_url, timeout=10)
             response.raise_for_status()
-            
+
             poster_path = os.path.join(MOVIE_DATA_DIR, f"{movie_id}.jpg")
             with open(poster_path, 'wb') as f:
                 f.write(response.content)
-            
+
             print(f"Poster saved: {poster_path}")
             return True
-            
+
         except requests.exceptions.RequestException as e:
             print(f"Error downloading poster: {e}")
             return False
-    
-    def _extract_movie_details(self, movie_id: str, data: Dict[str, Any]) -> Dict[str, Any]:
+
+    def _extract_movie_details(self, movie_id: str, data: Dict[str, Any], original_title: str) -> Dict[str, Any]:
         """Extract relevant movie details from API response."""
         # Parse ratings to find critic score
         critic_score = "N/A"
@@ -104,17 +141,17 @@ class MovieFetcher:
             if rating["Source"] in ["Rotten Tomatoes", "Metacritic"]:
                 critic_score = rating["Value"]
                 break
-        
+
         # Extract main actors (first 5)
         actors = data.get("Actors", "N/A")
         if actors != "N/A":
             actors_list = [actor.strip() for actor in actors.split(",")[:5]]
         else:
             actors_list = []
-        
+
         return {
             "movie_id": movie_id,
-            "title": data.get("Title", "N/A"),
+            "title": original_title,  # Use the original search title
             "year": data.get("Year", "N/A"),
             "director": data.get("Director", "N/A"),
             "genre": data.get("Genre", "N/A"),
@@ -126,51 +163,87 @@ class MovieFetcher:
             "imdb_rating": data.get("imdbRating", "N/A"),
             "poster_url": data.get("Poster", "N/A")
         }
-    
+
+    def _create_not_found_entry(self, title: str, year: Optional[str] = None) -> Dict[str, Any]:
+        """Create a default entry for movies not found in the API."""
+        movie_id = self._generate_fake_imdb_id(title, year)
+
+        return {
+            "movie_id": movie_id,
+            "title": title,
+            "year": year if year else "Unknown",
+            "director": "Unknown",
+            "genre": "No genre",
+            "rated": "PG",
+            "actors": [],
+            "plot": "No summary available",
+            "runtime": "N/A",
+            "critic_score": "0",
+            "imdb_rating": "0.0",
+            "poster_url": "N/A"
+        }
+
     def fetch_movie(self, title: str, year: Optional[str] = None) -> Optional[str]:
         """
         Main method to fetch movie details.
         Returns movie_id if successful, None otherwise.
         """
-        # Check if already cached
-        cached_id = self._find_cached_movie(title, year)
-        if cached_id:
-            print(f"Movie already cached with ID: {cached_id}")
-            return cached_id
-        
-        # Fetch from API
-        print(f"Fetching movie data for: {title}" + (f" ({year})" if year else ""))
-        raw_data = self._fetch_movie_data(title, year)
-        
+        # Store the original search title
+        original_title = title
+
+        # Check if already cached (using original search title)
+        cached = self._find_cached_movie(original_title, year)
+        if cached:
+            movie_id = cached["movie_id"]
+            found = cached["found"]
+            if found:
+                print(f"Movie already cached with ID: {movie_id}")
+            else:
+                print(f"Movie was previously not found. Cached with ID: {movie_id}")
+            return movie_id
+
+        # Apply title fix for API search
+        fixed_title = self._apply_title_fix(original_title)
+
+        # Fetch from API (using fixed title)
+        print(f"Fetching movie data for: {original_title}" + (f" ({year})" if year else ""))
+        raw_data = self._fetch_movie_data(fixed_title, year)
+
         if not raw_data:
-            return None
-        
-        # Extract details
-        movie_id = raw_data.get("imdbID")
-        movie_details = self._extract_movie_details(movie_id, raw_data)
-        
-        if not movie_id:
-            print("Error: No IMDb ID found")
-            return None
-        
-        # Download poster
-        self._download_poster(movie_details["poster_url"], movie_id)
-        
+            # Movie not found - create a not found entry
+            print(f"Movie not found. Creating cached 'not found' entry...")
+            movie_details = self._create_not_found_entry(original_title, year)
+            movie_id = movie_details["movie_id"]
+            found = False
+        else:
+            # Extract details from API response (but use original title)
+            movie_id = raw_data.get("imdbID")
+            movie_details = self._extract_movie_details(movie_id, raw_data, original_title)
+            found = True
+
+            if not movie_id:
+                print("Error: No IMDb ID found")
+                return None
+
+            # Download poster (only for found movies)
+            self._download_poster(movie_details["poster_url"], movie_id)
+
         # Save movie details to JSON file
         movie_file = os.path.join(MOVIE_DATA_DIR, f"{movie_id}.json")
         with open(movie_file, 'w', encoding='utf-8') as f:
             json.dump(movie_details, f, indent=2, ensure_ascii=False)
-        
+
         print(f"Movie data saved: {movie_file}")
-        
-        # Update master file
+
+        # Update master file (using original search title)
         self.master_data["movies"].append({
-            "title": movie_details["title"],
+            "title": original_title,
             "year": movie_details["year"],
-            "movie_id": movie_id
+            "movie_id": movie_id,
+            "found": found
         })
         self._save_master_file()
-        
+
         print(f"Movie ID: {movie_id}")
         return movie_id
 
@@ -190,23 +263,23 @@ def main():
         print("Usage: python movie_fetcher.py title='Movie Title' [year=YYYY]")
         print("Example: python movie_fetcher.py title='Top Gun: Maverick' year=2022")
         sys.exit(1)
-    
+
     # Parse arguments
     args = parse_arguments(sys.argv[1:])
-    
+
     if "title" not in args:
         print("Error: 'title' argument is required")
         sys.exit(1)
-    
+
     title = args["title"]
     year = args.get("year")
-    
+
     # Initialize fetcher
     fetcher = MovieFetcher(API_KEY)
-    
+
     # Fetch movie
     movie_id = fetcher.fetch_movie(title, year)
-    
+
     if movie_id:
         print(f"\nSuccess! Movie ID: {movie_id}")
         return movie_id

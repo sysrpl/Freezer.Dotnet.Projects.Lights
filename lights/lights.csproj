@@ -6,6 +6,9 @@
         <ProjectReference Include="..\..\..\Codebot\Codebot.Web\Codebot.Web.csproj" />
         <ProjectReference Include="..\..\..\Libraries\SDL2-CS\SDL2-CS.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="CsvHelper" Version="33.1.0" />
+    </ItemGroup>
     <PropertyGroup>
         <Deterministic>false</Deterministic>
         <OutputType>Exe</OutputType>

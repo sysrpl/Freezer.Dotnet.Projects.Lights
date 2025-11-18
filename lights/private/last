@@ -1,18 +1,18 @@
 {
-  "movie_id": "tt0113243",
-  "title": "Hackers",
-  "year": "1995",
-  "director": "Iain Softley",
-  "genre": "Crime, Drama, Romance",
-  "rated": "PG-13",
+  "movie_id": "tt0103874",
+  "title": "Bram Stoker's Dracula",
+  "year": "1992",
+  "director": "Francis Ford Coppola",
+  "genre": "Fantasy, Horror, Romance",
+  "rated": "R",
   "actors": [
-    "Jonny Lee Miller",
-    "Angelina Jolie",
-    "Jesse Bradford"
+    "Gary Oldman",
+    "Winona Ryder",
+    "Anthony Hopkins"
   ],
-  "plot": "Teenage hackers discover a criminal conspiracy with plans to use a computer virus that will capsize five oil tankers.",
-  "runtime": "105 min",
-  "critic_score": "34%",
-  "imdb_rating": "6.2",
-  "poster_url": "https://m.media-amazon.com/images/M/MV5BOGZkZTc2ZjItNzIzMS00ODRlLTliNjgtZjRmNzM2NjkzZTU1XkEyXkFqcGc@._V1_SX300.jpg"
+  "plot": "Centuries-old vampire Count Dracula comes to England to seduce his barrister Jonathan Harker's fiancée Mina Murray and wreak havoc in the foreign land.",
+  "runtime": "128 min",
+  "critic_score": "69%",
+  "imdb_rating": "7.4",
+  "poster_url": "https://m.media-amazon.com/images/M/MV5BMmVhNzhlMzMtYjJkNy00ODU4LWJmMjUtYzdlMGI3MTQ3YzBhXkEyXkFqcGc@._V1_SX300.jpg"
 }

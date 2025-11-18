@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.StaticFiles;
 #endif
 
+using System.Net;
+using System.Net.Sockets;
 using Microsoft.AspNetCore.Http;
 
 namespace Lights;
@@ -30,6 +32,20 @@ public static class Program
     static bool allowPublic = false;
     static long wanExpire = 0;
     static string wanAddress = "";
+    static readonly string localAddress = GetLocalAddress();
+    static readonly string localName = localAddress.StartsWith("192.168.68") ? "pi" : "home";
+
+    public static string GetLocalAddress()
+    {
+        using var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0);
+        socket.Connect("8.8.8.8", 65530);
+        var endPoint = socket.LocalEndPoint as IPEndPoint;
+        return endPoint?.Address.ToString() ?? "";
+    }
+
+    public static string LocalAddress { get => localAddress; }
+    public static string LocalName { get => localName; }
+
 
     const string AccessKey = "accesskey";
 
@@ -115,7 +131,7 @@ public static class Program
     public static void Main(string[] args)
     {
         // This setting enforces external daily code authentication
-        allowPublic = true;
+        allowPublic = false;
         var fake = !Device.IsPi;
         Task.Run(() => PixelBase.Run(0, fake));
         Task.Run(() => PixelBase.Run(1, fake));

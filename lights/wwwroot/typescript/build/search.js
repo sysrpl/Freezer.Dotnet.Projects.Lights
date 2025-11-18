@@ -232,7 +232,7 @@ function subscribeEvent(endpoint, onconnect, onmessage) {
     }
     function heartbeat() {
         if (eventSource.readyState === EventSource.CLOSED || dead) {
-            eventSource.close();
+            eventSource === null || eventSource === void 0 ? void 0 : eventSource.close();
             dead = false;
             recreate();
         }

@@ -232,7 +232,7 @@ function subscribeEvent(endpoint, onconnect, onmessage) {
     }
     function heartbeat() {
         if (eventSource.readyState === EventSource.CLOSED || dead) {
-            eventSource.close();
+            eventSource === null || eventSource === void 0 ? void 0 : eventSource.close();
             dead = false;
             recreate();
         }
@@ -2541,6 +2541,12 @@ function initSettings() {
 function main() {
     let local = navigator.userAgent.indexOf("aarch64") > 1 && navigator.userAgent.indexOf("605.1.15") > 1;
     let logo = get("#caption .logo");
+    document.addEventListener("error", (event) => {
+        const target = event.target;
+        if (target instanceof HTMLImageElement) {
+            target.src = "/storage/movies/missing.jpg";
+        }
+    }, true);
     if (local) {
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.body.style.cursor = "none";
@@ -2575,7 +2581,10 @@ function main() {
         let s = t.classList.item(0);
         if (s == "power") {
             icon = s;
-            fetch(`/?action=stop`).then(() => location.reload());
+            fetch(`/?action=settings-set-visuals&visuals=0`)
+                .then(() => fetch("/?action=settings-save"))
+                .then(() => fetch(`/?action=stop`))
+                .then(() => location.reload());
             return;
         }
         for (let m of getAll("#caption .mode"))

@@ -67,6 +67,8 @@ public partial class HomePage : PageHandler
         var v = ReadInt("visuals");
         if (Enum.IsDefined(typeof(AudioVisuals), v))
             state.Visuals = (AudioVisuals)v;
+        else
+            state.Visuals = AudioVisuals.None;
     }
 
     [Action("settings-get-visual-source")]

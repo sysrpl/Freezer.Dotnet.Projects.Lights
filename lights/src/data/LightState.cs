@@ -262,7 +262,7 @@ public class LightState
             {
                 Shuffle("");
                 effect = value;
-                off = effect == "off";
+                off = effect == "off" || effect == "none";
             }
         }
     }

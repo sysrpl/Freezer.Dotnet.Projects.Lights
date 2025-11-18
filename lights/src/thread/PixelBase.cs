@@ -202,7 +202,6 @@ public class PixelBase
         var obj = new PixelEffects(dataLine, fake);
 
         Action effect;
-        var off = false;
         var last = "";
         var metrics = new Stopwatch();
         var timer = new Stopwatch();
@@ -239,32 +238,25 @@ public class PixelBase
                 foreach (var p in obj.Pixels)
                     obj.Intensity(p);
                 obj.Pixels.Update();
+                obj.Pixels.Reset();
                 continue;
             }
             if (obj.State.Off)
             {
-                if (!off)
-                {
-                    obj.Pixels.Reset();
-                    obj.Pixels.Update();
-                }
-                off = true;
-                Sleep(500);
+                obj.Pixels.Reset();
+                obj.Pixels.Update();
                 continue;
             }
-            off = false;
             effect = null;
             if (last != obj.State.Effect)
             {
                 last = obj.State.Effect;
-                obj.Pixels.Reset();
                 obj.Changed = true;
             }
             if (obj.State.Intensity == 0f)
             {
                 obj.Pixels.Reset();
                 obj.Pixels.Update();
-                Sleep(500);
                 continue;
             }
             switch (obj.State.Effect)
@@ -340,10 +332,7 @@ public class PixelBase
                     obj.Intensity(p);
             }
             else
-            {
-                Sleep(100);
                 obj.Pixels.Reset();
-            }
             obj.Pixels.Update();
         }
     }
