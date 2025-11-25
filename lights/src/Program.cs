@@ -1,12 +1,12 @@
-#if nocache
-using Microsoft.AspNetCore.StaticFiles;
-#endif
+namespace Lights;
 
+using Lights.Hardware;
 using System.Net;
 using System.Net.Sockets;
 using Microsoft.AspNetCore.Http;
-
-namespace Lights;
+#if nocache
+using Microsoft.AspNetCore.StaticFiles;
+#endif
 
 public static class Program
 {
@@ -142,6 +142,7 @@ public static class Program
         App.Domain = "shawshack.club";
         App.CaptivePortal = !fake;
         Events = App.RegisterEvent("/events");
+        HardwareMonitor.Start();
         App.OnBeginRequest += HandleBeginRequest;
         App.Run(args);
         LightState.Current.Running = false;

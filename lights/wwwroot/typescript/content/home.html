@@ -22,7 +22,7 @@
     <!-- Theme color for browser UI -->
     <meta name="theme-color" content="#000000">
     <!-- iOS specific meta tags -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Shaw Shack">
     <link rel="apple-touch-icon" href="/typescript/content/icons/icon-192x192.png">
@@ -54,7 +54,7 @@
             <div>lab works</div>
         </div -->
         <div class="movies item"><i class="fa-solid fa-ticket"></i>
-            <div>movies (alpha)</div>
+            <div>movies</div>
         </div>
         <div class="settings item no-scale"><i class="fa-solid fa-gear"></i>
             <div>settings</div>
@@ -230,42 +230,67 @@
                 <div class="slider intensity"></div>
             </div -->
             <div id="movies">
-                <span class="switch"><i class="fa-solid fa-list"></i></span>
+                <span class="button switch"><i class="fa-solid fa-list"></i></span>
                 <span class="single">
                     <span id="webcontrol">
-                        <i class="fa-solid fa-lightbulb bulb"></i>
-                        <i class="fa-solid fa-magnifying-glass glass"></i>
-                        <i class="fa-solid fa-arrow-left arrow"></i>
-                        <i class="fa-solid fa-caret-left"></i>
-                        <i class="fa-solid fa-caret-up"></i>
-                        <i class="fa-solid fa-caret-right"></i>
-                        <i class="fa-solid fa-caret-down"></i>
-                        <i class="fa-solid fa-bars"></i>
-                        <i class="fa-solid fa-closed-captioning"></i>
+                        <i class="fa-solid fa-lightbulb go-powered"></i>
+                        <i class="fa-solid fa-magnifying-glass go-search"></i>
+                        <i class="fa-solid fa-arrow-left go-back"></i>
+                        <i class="fa-solid fa-caret-left go-left"></i>
+                        <i class="fa-solid fa-caret-up go-up"></i>
+                        <i class="fa-solid fa-caret-right go-right"></i>
+                        <i class="fa-solid fa-caret-down go-down"></i>
+                        <i class="fa-solid fa-circle-check go-select"></i>
+                        <i class="fa-solid fa-bars go-settings"></i>
+                        <i class="fa-solid fa-play go-play"></i>
+                        <i class="fa-solid fa-eject go-eject"></i>
+                        <i class="fa-solid fa-volume-low go-muted"></i>
                         <svg viewBox="0 0 500 500" preserveAspectRatio="xMidYMid meet" version="1.1" id="svgcontrol"
                             xmlns="http://www.w3.org/2000/svg">
-                            <path
+                            <path id="left"
                                 d="M 80.081219,93.057513 C -3.0240166,178.00676 -2.8086196,328.68834 80.629935,411.76968 101.77829,390.48446 122.92663,369.19928 144.07498,347.91406 95.68666,295.86503 97.648327,208.61474 143.59214,156.84214 122.42183,135.5806 101.25153,114.31905 80.081219,93.057513 Z"
-                                class="left normal" />
-                            <path
+                                class="normal" />
+                            <path id="up"
                                 d="M 252.37186,17.793462 C 195.32984,17.613439 129.43649,41.031361 93.845244,82.174514 114.68404,103.10371 135.52284,124.03291 156.36163,144.96211 208.24444,95.291467 295.98125,98.785032 347.92741,142.73767 368.91425,121.61446 389.90108,100.49125 410.88792,79.368032 368.16914,40.017688 310.45202,17.597828 252.37186,17.793462 Z"
-                                class="top normal" />
-                            <path
+                                class="normal" />
+                            <path id="right"
                                 d="m 423.30567,91.607018 c -21.29892,21.436802 -42.59781,42.873612 -63.89673,64.310422 50.91886,52.44202 46.88999,142.16218 1.18472,194.1594 20.99705,21.08814 41.99413,42.17632 62.99118,63.26446 84.41918,-86.44376 84.31089,-235.40708 -0.27904,-321.734282 z"
-                                class="right normal" />
-                            <path
+                                class="normal" />
+                            <path id="down"
                                 d="m 156.36163,360.28242 c -21.2989,21.43739 -42.59781,42.87475 -63.896719,64.31213 84.139119,83.18416 236.871299,83.29508 317.755819,0.0353 -21.00898,-21.1001 -42.01799,-42.2002 -63.02696,-63.3003 -52.51738,47.52679 -138.81776,47.07334 -190.83214,-1.04701 z"
-                                class="bottom normal" />
-                            <circle cx="252.37187" cy="252.62227" r="121.88752" class="center normal" />
-                            <circle cx="252.37187" cy="330" r="45" class="cc normal" />
-                            <circle cx="80" cy="-30" r="70" class="power normal" />
-                            <circle cx="250" cy="-80" r="70" class="search normal" />
-                            <circle cx="420" cy="-30" r="70" class="back normal" />
+                                class="normal" />
+                            <circle id="select" cx="252.37187" cy="252.62227" r="121.88752" class="normal" />
+                            <circle id="options" cx="252.37187" cy="330" r="45" class="normal" />
+                            <circle id="powered" cx="80" cy="-30" r="70" class="normal" />
+                            <circle id="search" cx="250" cy="-80" r="70" class="normal" />
+                            <circle id="back" cx="420" cy="-30" r="70" class="normal" />
+                            <rect id="play" x="30" y="510" width="125" height="125" rx="35" ry="35" class="normal" />
+                            <rect id="eject" x="187.5" y="510" width="125" height="125" rx="35" ry="35"
+                                class="normal" />
+                            <rect id="muted" x="345" y="510" width="125" height="125" rx="35" ry="35" class="normal" />
                         </svg>
                     </span>
                     <span class="container">
                         <span class="details"><span class="title">title</span><span class="info">info</span></span>
                         <img title="poster" class="poster" src="/storage/movies/data/tt1312221.jpg">
+                    </span>
+                    <span id="waiting"><i class="fa-solid fa-spinner fa-spin-pulse"></i></span>
+                    <span id="progress">
+                        <img class="poster" src="/storage/movies/data/tt0104257.jpg">
+                        <span class="detai1s">
+                            <span class="title">A Few Good Men (1992)</span>
+                            <span class="speed">playing at 0:00:25 of 1:29:13</span>
+                        </span>
+                        <span class="scrub">
+                            <span class="position"></span>
+                        </span>
+                        <span class="jump">
+                            <span class="button prior"><i class="fa-solid fa-backward-step"></i></span>
+                            <span class="button rewind"><i class="fa-solid fa-backward"></i></span>
+                            <span class="button forward"><i class="fa-solid fa-forward"></i></span>
+                            <span class="button next"><i class="fa-solid fa-forward-step"></i></span>
+                            <span class="button replay"><i class="fa-solid fa-clock-rotate-left"></i></span>
+                        </span>
                     </span>
                 </span>
                 <span class="list">

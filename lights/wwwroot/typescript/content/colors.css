@@ -51,12 +51,16 @@ body.blue #webcontrol svg .normal:active {
     fill: #2288c3;
 }
 
-body.blue #movies .switch {
+body.blue #movies .button {
     background: #a2cfea;
 }
 
-body.blue #movies .switch:active {
+body.blue #movies .button:active {
     background: #2288c3;
+}
+
+body.blue #movies .list .movie.selected {
+    border: 2px solid #2288c3;
 }
 
 body.blue #caption {
@@ -133,6 +137,14 @@ body.blue #folders .folder .count {
     background-color: #a2cfea;
 }
 
+body.blue #movies #progress .scrub {
+    border: 2px solid #a2cfea;
+}
+
+body.blue #movies #progress .scrub .position {
+    background: #a2cfea;
+}
+
 /* orange */
 
 body.orange  {
@@ -166,12 +178,16 @@ body.orange #webcontrol svg .normal:active {
     fill: #e78960;
 }
 
-body.orange #movies .switch {
+body.orange #movies .button {
     background: #e5c2a2;
 }
 
-body.orange #movies .switch:active {
+body.orange #movies .button:active {
     background: #e78960;
+}
+
+body.orange #movies .list .movie.selected {
+    border: 2px solid #e78960;
 }
 
 body.orange #caption {
@@ -248,6 +264,14 @@ body.orange #folders .folder .count {
     background-color: #e5c2a2;
 }
 
+body.orange #movies #progress .scrub {
+    border: 2px solid #e5c2a2;
+}
+
+body.orange #movies #progress .scrub .position {
+    background: #e5c2a2;
+}
+
 /* green */
 
 body.green  {
@@ -281,12 +305,16 @@ body.green #webcontrol svg .normal:active {
     fill: #208b19;
 }
 
-body.green #movies .switch {
+body.green #movies .button {
     background: #95d191;
 }
 
-body.green #movies .switch:active {
+body.green #movies .button:active {
     background: #208b19;
+}
+
+body.green #movies .list .movie.selected {
+    border: 2px solid #208b19;
 }
 
 body.green #caption {
@@ -363,6 +391,14 @@ body.green #folders .folder .count {
     background-color: #95d191;
 }
 
+body.green #movies #progress .scrub {
+    border: 2px solid #95d191;
+}
+
+body.green #movies #progress .scrub .position {
+    background: #95d191;
+}
+
 /* purple */
 
 body.purple  {
@@ -396,11 +432,11 @@ body.purple #webcontrol svg .normal:active {
     fill: #6b167a;
 }
 
-body.purple #movies .switch {
+body.purple #movies .button {
     background: #d17bd9;
 }
 
-body.purple #movies .switch:active {
+body.purple #movies .button:active {
     background: #6b167a;
 }
 
@@ -424,6 +460,10 @@ body.purple #settings .group .label {
 
 body.purple #icons .item:active {
     background-color: #650c76;
+}
+
+body.purple #movies .list .movie.selected {
+    border: 2px solid #650c76;
 }
 
 body.purple #effects #colors div {
@@ -476,4 +516,12 @@ body.purple div.button {
 
 body.purple #folders .folder .count {
     background-color: #d17bd9;
+}
+
+body.purple #movies #progress .scrub {
+    border: 2px solid #d17bd9;
+}
+
+body.purple #movies #progress .scrub .position {
+    background: #d17bd9;
 }

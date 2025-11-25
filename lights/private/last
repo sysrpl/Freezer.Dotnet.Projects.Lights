@@ -1,18 +1,1 @@
-{
-  "movie_id": "tt0103874",
-  "title": "Bram Stoker's Dracula",
-  "year": "1992",
-  "director": "Francis Ford Coppola",
-  "genre": "Fantasy, Horror, Romance",
-  "rated": "R",
-  "actors": [
-    "Gary Oldman",
-    "Winona Ryder",
-    "Anthony Hopkins"
-  ],
-  "plot": "Centuries-old vampire Count Dracula comes to England to seduce his barrister Jonathan Harker's fiancée Mina Murray and wreak havoc in the foreign land.",
-  "runtime": "128 min",
-  "critic_score": "69%",
-  "imdb_rating": "7.4",
-  "poster_url": "https://m.media-amazon.com/images/M/MV5BMmVhNzhlMzMtYjJkNy00ODU4LWJmMjUtYzdlMGI3MTQ3YzBhXkEyXkFqcGc@._V1_SX300.jpg"
-}
+{"movie_id":"tt0094737","title":"Big","year":"1988","director":"Penny Marshall","genre":"Comedy, Drama, Fantasy","rated":"PG","actors":["Tom Hanks","Elizabeth Perkins","Robert Loggia"],"plot":"After wishing to be made big, a teenage boy wakes the next morning to find himself mysteriously in the body of an adult.","runtime":"104 min","critic_score":"98%","imdb_rating":"7.3","poster_url":"https://m.media-amazon.com/images/M/MV5BNzE3ZTc2ZDgtMzQ4MS00NjEyLWJkMDYtZmMzZmY5ODJhMDdmXkEyXkFqcGc@._V1_SX300.jpg"}

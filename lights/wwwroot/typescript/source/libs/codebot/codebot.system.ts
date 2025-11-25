@@ -410,10 +410,20 @@ function subscribeEvent(endpoint: string, onconnect: Proc | null, onmessage: Any
     let eventSource = null;
     let dead = false;
 
+    function safeParse(s: string): any {
+        try {
+            return JSON.parse(s);
+        } catch (e) {
+            console.error("Bad JSON:", s);
+            console.error(new Error().stack);
+            throw e;
+        }
+    }
+
     function recreate() {
         eventSource = new EventSource(endpoint);
         eventSource.onopen = () => onconnect?.();
-        eventSource.onmessage = (e: MessageEvent) => onmessage?.(JSON.parse(e.data));
+        eventSource.onmessage = (e: MessageEvent) => onmessage?.(safeParse(e.data));
         eventSource.onerror = () => dead = true;
     }
 

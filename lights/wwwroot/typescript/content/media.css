@@ -61,15 +61,19 @@
     #webcontrol {
         position: absolute;
         left: 0vw;
-        top: 25vh;
+        top: 20vh;
         display: block;
         width: 50vh;
         height: 50vh;
         transform: scale(0.8);
     }
 
+    .playing #webcontrol {
+        top: 10vh;
+    }
+
     #movies .container {
-	position: absolute;
+        position: absolute;
         left: 46vh;
         width: calc(100vw - 50vh);
         padding: 2em;
@@ -77,8 +81,16 @@
         min-height: calc(100vh - 90pt);
     }
 
+    .playing #movies {
+        padding-top: 0;
+    }
+
     #movies .details {
         margin-top: -2em;
+    }
+
+    .playing .container {
+        margin-top: -1em;
     }
 
     #movies .poster {
@@ -177,6 +189,10 @@
         padding-bottom: 4em;
     }
 
+    #movies .container {
+        padding-bottom: 110pt;
+    }
+
     #movies .details {
         display: flex;
         flex-direction: column;
@@ -190,5 +206,43 @@
         height: auto;
         display: block;
         margin: 0 auto;
+    }
+
+    #webcontrol {
+        margin-bottom: 150px;
+    }
+
+    #movies #progress .poster {
+        display: none;
+    }
+
+    #movies #progress .jump span.prior {
+        left: initial;
+        right: 220pt;
+    }
+
+    #movies #progress .jump span.rewind {
+        left: initial;
+        right: 180pt;
+    }
+
+    #movies #progress .speed {
+        left: 0;
+        width: 100vw;
+        text-align: center;
+    }
+
+    #movies #progress .title {
+        left: 0;
+        width: 100vw;
+        text-align: center;
+    }
+
+    #movies #progress .speed {
+        top: 30pt;
+    }
+
+    #movies #progress .title {
+        top: 3pt;
     }
 }

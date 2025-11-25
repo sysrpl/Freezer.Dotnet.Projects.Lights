@@ -92,8 +92,6 @@ public partial class SearchPage : PageHandler
                 s += ".json";
                 s = Path.Combine(w, "data", s);
                 s = File.ReadAllText(s);
-                movieLast = s;
-                File.WriteAllText(lastFile, movieLast);
                 if (added)
                 {
                     if (movieList == "[]")
@@ -193,8 +191,6 @@ public partial class SearchPage : PageHandler
             if (changed)
                 File.WriteAllText(fileName, json);
         }
-        if (changed && !token.IsCancellationRequested)
-            await Program.Events.BroadcastAsync("movies", movieLast);
     }
 
     public static string MovieLast
@@ -203,6 +199,14 @@ public partial class SearchPage : PageHandler
         {
             lock (mutex)
                 return movieLast;
+        }
+        set
+        {
+            lock (mutex)
+            {
+                movieLast = value;
+                File.WriteAllText(lastFile, movieLast);
+            }
         }
     }
 
@@ -237,6 +241,8 @@ public partial class SearchPage : PageHandler
 
     [Action("search-get-movie-last")]
     public void SearchGetMovieLast() => Write(MovieLast);
+    [Action("search-set-movie-last")]
+    public void SearchSetMovieLast() => MovieLast = Read("movie");
 
     static bool searching = false;
 

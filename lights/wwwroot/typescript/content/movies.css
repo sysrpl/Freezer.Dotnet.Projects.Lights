@@ -49,53 +49,71 @@
     font-size: 12vh;
 }
 
-#webcontrol i.bulb {
+#webcontrol i.go-powered {
     left: 0.35em;
     top: -0.85em;
     font-size: 8vh;
 }
 
-#webcontrol i.glass {
+#webcontrol i.go-search {
     left: calc(50% - 0.6em);
-    top: -1.4em;
+    top: -1.45em;
     font-size: 8vh;
 }
 
-#webcontrol i.arrow {
+#webcontrol i.go-back {
     right: 0.35em;
     top: -0.85em;
     font-size: 8vh;
 }
 
-#webcontrol i.fa-caret-left  {
+#webcontrol i.go-left {
     left: -0.05em;
     top: calc(50% - 0.48em);
 }
 
-#webcontrol i.fa-caret-up  {
+#webcontrol i.go-up {
     left: calc(50% - 0.62em);
     top: 0.1em;
 }
 
-#webcontrol i.fa-caret-right  {
+#webcontrol i.go-right {
     right: -0.05em;
     top: calc(50% - 0.48em);
 }
 
-#webcontrol i.fa-caret-down  {
+#webcontrol i.go-down {
     left: calc(50% - 0.62em);
     bottom: 0.05em;
 }
 
-#webcontrol i.fa-bars  {
+#webcontrol i.go-select {
     left: calc(50% - 0.62em);
-    top: calc(50% - 0.7em);
+    top: calc(50% - 0.75em);
 }
 
-#webcontrol i.fa-closed-captioning  {
+#webcontrol i.go-settings {
     left: calc(50% - 0.62em);
     top: calc(50% + 0.85em);
     font-size: 6vh;
+}
+
+#webcontrol i.go-play {
+    left: 0.52em;
+    bottom: -1.45em;
+    font-size: 8vh;
+}
+
+#webcontrol i.go-eject {
+    left: calc(50% - 0.635em);
+    bottom: -1.43em;
+    font-size: 8vh;
+}
+
+#webcontrol i.go-muted {
+    right: 0.52em;
+    bottom: -1.45em;
+    font-size: 8vh;
 }
 
 #webcontrol svg {
@@ -194,13 +212,136 @@
     top: 2.5em;
 }
 
-#movies .list .movie  {
+#movies .list .movie {
     margin: 4pt;
     border: 2px solid black;
     transition: border-color 0.2s ease;
     border-radius: 8pt;
 }
 
-#movies .list .movie.selected  {
-    border: 2px solid steelblue;
+#movies #progress {
+    display: none;
+}
+
+#movies .playing #progress {
+    display: block;
+}
+
+#movies #waiting {
+    display: none;
+    position: absolute;
+    z-index: 11;
+    left: 0;
+    bottom: 0;
+    height: 100pt;
+    width: 100vw;
+    overflow: hidden;
+    text-align: center;
+    color: white;
+    background: rgba(0, 0, 0, 0.8);
+    line-height: 100px;
+}
+
+#movies #waiting i {
+    margin-top: 50px;
+    font-size: 42pt;
+}
+
+#movies #progress {
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    bottom: 0;
+    height: 100pt;
+    width: 100vw;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+#movies #progress .poster {
+    position: absolute;
+    height: 90pt;
+    width: auto;
+    left: 5pt;
+    top: 5pt;
+}
+
+#movies #progress .speed {
+    position: absolute;
+    height: 90pt;
+    width: auto;
+    left: 75pt;
+    top: 32pt;
+    font-size: 14pt;
+}
+
+#movies #progress .title {
+    position: absolute;
+    height: 90pt;
+    width: auto;
+    left: 75pt;
+    top: 5pt;
+    font-size: 20pt;
+}
+
+
+#movies #progress * {
+    color: white;
+}
+
+#movies #progress .jump span i {
+    color: black;
+    font-size: 22pt;
+    top: -5pt;
+    position: relative;
+    pointer-events: none;
+}
+
+#movies #progress .jump span {
+    position: absolute;
+    display: block;
+    color: black;
+    width: 36pt;
+    height: 36pt;
+    border-radius: 8pt;
+    bottom: 4pt;
+    text-align: center;
+}
+
+#movies #progress .scrub {
+    position: absolute;
+    display: block;
+    height: 12pt;
+    border-radius: 6pt;
+    left: 160pt;
+    width: calc(100vw - 347pt);
+    bottom: 15pt;
+    overflow: hidden;
+}
+
+#movies #progress .scrub .position {
+    position: absolute;
+    display: block;
+    height: 12pt;
+    width: 90%;
+}
+
+#movies #progress .jump span.prior {
+    left: 75pt;
+}
+
+#movies #progress .jump span.rewind {
+    left: 115pt;
+}
+
+#movies #progress .jump span.forward {
+    right: 140pt;
+}
+
+#movies #progress .jump span.next {
+    right: 100pt;
+}
+
+#movies #progress .jump span.replay {
+    right: 60pt;
 }
