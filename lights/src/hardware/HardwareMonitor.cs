@@ -140,7 +140,6 @@ public static class HardwareMonitor
             while (!token.IsCancellationRequested)
             {
                 await Task.Delay(1000, token);
-                timer++;
                 if (token.IsCancellationRequested)
                     return;
                 Kaleidescape.Status();
@@ -150,6 +149,7 @@ public static class HardwareMonitor
                     await SetPowered(Projector.Powered);
                     await SetVolume(Receiver.Volume);
                 }
+                timer++;
             }
         }
         catch

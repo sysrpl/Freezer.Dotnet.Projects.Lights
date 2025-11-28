@@ -8,6 +8,8 @@ enum SliderOrientation {
 class Slider {
     private _slider: HTMLElement;
     private _knob: HTMLElement;
+    private _fill: HTMLElement;
+    private _filled: boolean;
     private _associate: HTMLElement | null;
     private _position: number;
     private _min: number;
@@ -31,6 +33,9 @@ class Slider {
             if (this._inverted)
                 percent = 1 - percent;
             this._knob.style.left = (width * percent).toString() + "px";
+            if (this._filled) {
+
+            }
         }
         else {
             let height = this._slider.getBoundingClientRect().height - this._offset - 2;
@@ -38,7 +43,12 @@ class Slider {
             let percent = (this._position - this.min) / range;
             if (this._inverted)
                 percent = 1 - percent;
-            this._knob.style.top = (height * percent).toString() + "px";
+            let t = height * percent;
+            this._knob.style.top = t.toString() + "px";
+            if (this._filled) {
+                this._fill.style.top = this._knob.style.top;
+                this._fill.style.height = (height - t + 22).toString() + "px";
+            }
         }
     }
 
@@ -138,7 +148,7 @@ class Slider {
         return document as any;
     }
 
-    constructor(slider: string, associate?: string) {
+    constructor(slider: string, associate?: string, filled: boolean = false) {
         let knob = document.createElement("div");
         knob.classList.add("knob");
         this._slider = get(slider);
@@ -146,6 +156,14 @@ class Slider {
         this._slider["slider"] = this;
         this._knob = knob;
         this._associate = associate ? get(associate) : null;
+        this._filled = filled;
+        if (this._filled) {
+            let fill = document.createElement("div");
+            fill.classList.add("fill");
+            fill.style.pointerEvents = "none";
+            this._slider.appendChild(fill);
+            this._fill = fill;
+        }
         this._position = 0;
         this._min = 0;
         this._max = 100;
@@ -160,6 +178,7 @@ class Slider {
         window.addEventListener("resize", () => this.move(this._position));
 
         function sliderMouseMove(e: FingerEvent, s: Slider) {
+            document["_slider"] = s;
             let rect = s._slider.getBoundingClientRect();
             let pos = getFingerPos(e);
             if (s._orientation == SliderOrientation.Horizontal) {
@@ -192,15 +211,11 @@ class Slider {
 
         function sliderMouseUp(e: FingerEvent, s: Slider) {
             if (isMouseEvent(e)) {
-                if (e.button == 0) {
+                if (e.button == 0)
                     s._knob.removeClass("pressed");
-                    (document as any)._slider = null;
-                }
-
-            } else {
+            } else
                 s._knob.removeClass("pressed");
-                (document as any)._slider = null;
-            }
+            document["_slider"] = this;
         }
 
         if (hasTouchSupport()) {

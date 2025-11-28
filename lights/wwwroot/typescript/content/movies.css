@@ -40,6 +40,35 @@
     width: 50vh;
     height: 50vh;
     transform: scale(0.8);
+    z-index: 2;
+}
+
+#movies .slider {
+    position: absolute;
+    top: 0;
+    width: 28px;
+    right: -1.5em;
+    height: 110%;
+    border-radius: 16px;
+    background: black;
+    transform: scale(1.25);
+}
+
+
+ #movies .slider .knob {
+    position: absolute;
+    margin: 2px;
+    width: 22px;
+    height: 22px;
+    border-radius: 11px;
+    border: 1px solid transparent;
+}
+
+#movies .slider .fill {
+    position: absolute;
+    margin: 2px;
+    width: 24px;
+    border-radius: 11px;
 }
 
 #webcontrol i {

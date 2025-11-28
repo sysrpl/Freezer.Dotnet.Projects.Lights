@@ -47,7 +47,13 @@ public partial class HomePage : PageHandler
     [Action("movies-status")]
     public void MoviesStatus() =>  Kaleidescape.Status(true);
     [Action("movies-play-movie")]
-    public void MoviesPlayMovie() =>  Kaleidescape.PlayMovie(Read("movie"));
+    public void MoviesPlayMovie()
+    {
+        Projector.Powered = true;
+        Receiver.Source = "MPLAY";
+        Kaleidescape.PlayMovie(Read("movie"));
+    }
+
     [Action("movies-prior")]
     public void MoviesPrior() =>  Kaleidescape.Prior();
     [Action("movies-rewind")]

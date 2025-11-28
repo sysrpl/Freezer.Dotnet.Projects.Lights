@@ -125,6 +125,10 @@ body.blue .slider .knob {
     background-color: #a2cfea;
 }
 
+body.blue .slider .fill {
+    background-color: #a2cfea;
+}
+
 body.blue #effects .preview {
     border: 1px solid #a2cfea;
 }
@@ -249,6 +253,10 @@ body.orange .slider {
 }
 
 body.orange .slider .knob {
+    background-color: #e5c2a2;
+}
+
+body.orange .slider .fill {
     background-color: #e5c2a2;
 }
 
@@ -379,6 +387,10 @@ body.green .slider .knob {
     background-color: #95d191;
 }
 
+body.green .slider .fill {
+    background-color: #95d191;
+}
+
 body.green #effects .preview {
     border: 1px solid #95d191;
 }
@@ -503,6 +515,10 @@ body.purple .slider {
 }
 
 body.purple .slider .knob {
+    background-color: #d17bd9;
+}
+
+body.purple .slider .fill {
     background-color: #d17bd9;
 }
 

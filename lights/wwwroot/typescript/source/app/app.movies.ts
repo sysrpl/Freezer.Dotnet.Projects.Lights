@@ -1,6 +1,27 @@
 let switchMovies: Proc;
 
 function initMovies() {
+    let masterVolume: Slider;
+    masterVolume = new Slider("#movies .slider", null, true);
+    masterVolume.orientation = SliderOrientation.Vertical;
+    masterVolume.max = 100;
+    masterVolume.step = 0.01;
+    masterVolume.inverted = true;
+    masterVolume.move(5);
+
+    function volumeRead(v: number) {
+        masterVolume.move(v);
+    }
+
+    setTimeout(() => fetchJson("/?action=settings-get-volume", volumeRead), 1000);
+    Messages.subscribe("volume", null, volumeRead);
+
+    function masterVolumeSubmit() {
+        let p = Math.round(masterVolume.position);
+        fetch(`/?action=settings-set-volume&volume=${p}`);
+    }
+
+    masterVolume.onsubmit = masterVolumeSubmit;
 
     interface PlayStatus {
         playing: string,
@@ -101,6 +122,7 @@ function initMovies() {
     let listTab = get("#movies .list") as HTMLElement;
     let progress = get("#progress") as HTMLElement;
     let single = true;
+    let current: string = "";
 
     function switcherClick() {
         let i = switcher.get("i");
@@ -128,9 +150,9 @@ function initMovies() {
         fetch("/?action=touch");
         let title = t.attributes.getNamedItem("title").value;
         let year = t.attributes.getNamedItem("year").value;
-        let movie = movieList.find(m => m.title === title && m.year === year);
+        let m = movieList.find(m => m.title === title && m.year === year);
         setTimeout(() => {
-            movieReceived(movie);
+            fetchPost("/search/?action=search-set-movie-last", { movie: JSON.stringify(m)});
         }, 1000);
     }
 
@@ -150,6 +172,7 @@ function initMovies() {
 
     function movieReceived(m: Movie) {
         state.movies.selected = m.title;
+        current = m.title;
         title.innerText = `${m.title} (${m.year})`;
         poster.src = `/storage/movies/data/${m.movie_id}.jpg`;
         info.innerHTML = `${m.runtime} <span class="imdb">imdb</span> rating ${m.imdb_rating}
@@ -340,9 +363,10 @@ Summary: ${m.plot}`;
 
     function playClick() {
         if (state.status.playing == "none") {
-            fetchPost("/?action=movies-play-movie", { movie: state.movies.selected });
-            let p = get("#movies #waiting");
-            p.style.display = "block";
+            fetchPost("/?action=movies-play-movie", { movie: current });
+            let w = get("#movies #waiting");
+            w.style.display = "block";
+            setTimeout(() => w.style.display = "none", 8000);
             return;
         }
         if (state.status.playing == "playing") {
@@ -416,5 +440,6 @@ Summary: ${m.plot}`;
     Messages.subscribe("muted", mutedConnect, mutedReceived);
 
     switchMovies = function () {
-    }
+        setTimeout(() => fetchJson("/?action=settings-get-volume", volumeRead), 500);
+   }
 }

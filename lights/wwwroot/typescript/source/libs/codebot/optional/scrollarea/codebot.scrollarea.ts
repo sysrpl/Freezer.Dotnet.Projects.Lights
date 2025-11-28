@@ -60,6 +60,8 @@ class ScrollArea {
     }
 
     private boxMouseDown = (e: MouseEvent) => {
+        if (document["_slider"])
+            return;
         if (this.momentumTimer)
             clearInterval(this.momentumTimer);
         let me = this;
@@ -84,7 +86,10 @@ class ScrollArea {
         let me = this;
 
         function timer() {
-            me.box.scrollTop -= me.velocity;
+            if (document["_slider"]) {
+            }
+            else
+                me.box.scrollTop -= me.velocity;
             me.velocity *= decay;
             if (Math.abs(me.velocity) < 0.2) {
                 clearInterval(me.momentumTimer);
@@ -98,6 +103,9 @@ class ScrollArea {
     private windowMouseMove = (e: MouseEvent) => {
         if (!this.isDown)
             return;
+        if (document["_slider"])
+            return;
+        console.log("move");
         const y = e.pageY - this.box.offsetTop;
         const now = Date.now();
         const dy = y - this.lastY;

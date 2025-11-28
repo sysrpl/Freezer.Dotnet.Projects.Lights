@@ -23,12 +23,21 @@ public static class Kaleidescape
 
     class PlayStatus
     {
-        string playing = "";
+        string playing = "none";
         int speed = 0;
         int titleId = 0;
         string title = "";
         int duration = 0;
         int position = 0;
+        public bool Active
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(playing))
+                    return false;
+                return playing != "none";
+            }
+        }
         [JsonIgnore]
         public bool Changed { get; set; } = false;
         [JsonPropertyName("playing")]
@@ -65,6 +74,7 @@ public static class Kaleidescape
                 var items = Parse(":PLAY_STATUS:", e);
                 int titleId = status.TitleId;
                 status.Speed = 0;
+                var active = status.Active;
                 switch (items[0])
                 {
                     case "0":
@@ -88,7 +98,10 @@ public static class Kaleidescape
                 status.TitleId = int.Parse(items[2]);
                 status.Duration = int.Parse(items[3]);
                 status.Position = int.Parse(items[4]);
-                Update();
+                if (!active && status.Active)
+                    Title();
+                else
+                    Update();
                 return;
             }
         if (e.Contains(":TITLE_NAME:"))
@@ -171,15 +184,17 @@ public static class Kaleidescape
             return;
         movie = movie.ToLower().Trim().Replace(":", "\\:");
         Command("STOP");
-        Sleep(100);
+        Sleep(250);
+        Command("BACK");
+        Sleep(250);
         Command("GO_MOVIE_LIST");
-        Sleep(500);
+        Sleep(700);
         Command("FILTER_LIST");
-        Sleep(200);
+        Sleep(400);
         Command("SET_USER_INPUT_ENTRY", movie);
-        Sleep(200);
+        Sleep(400);
         Command("SELECT");
-        Sleep(500);
+        Sleep(700);
         Command("PLAY");
     }
 }

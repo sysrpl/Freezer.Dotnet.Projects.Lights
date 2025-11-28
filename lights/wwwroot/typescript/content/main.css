@@ -47,6 +47,10 @@ body {
     color: white;
 }
 
+#accesscode {
+    display: none;
+}
+
 #debug {
     position: absolute;
     z-index: 50;

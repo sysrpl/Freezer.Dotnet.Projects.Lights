@@ -202,11 +202,16 @@ public partial class SearchPage : PageHandler
         }
         set
         {
+            var changed = false;
             lock (mutex)
             {
+                changed = movieLast != value;
                 movieLast = value;
-                File.WriteAllText(lastFile, movieLast);
+                if (changed)
+                    File.WriteAllText(lastFile, movieLast);
             }
+            if (changed)
+                Program.Events.Broadcast("movies", movieLast);
         }
     }
 

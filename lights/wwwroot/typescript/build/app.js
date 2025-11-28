@@ -1035,6 +1035,8 @@ class ScrollArea {
             this.down.classList.toggle('hidden', bottom);
         };
         this.boxMouseDown = (e) => {
+            if (document["_slider"])
+                return;
             if (this.momentumTimer)
                 clearInterval(this.momentumTimer);
             let me = this;
@@ -1057,7 +1059,10 @@ class ScrollArea {
             const decay = 0.95;
             let me = this;
             function timer() {
-                me.box.scrollTop -= me.velocity;
+                if (document["_slider"]) {
+                }
+                else
+                    me.box.scrollTop -= me.velocity;
                 me.velocity *= decay;
                 if (Math.abs(me.velocity) < 0.2) {
                     clearInterval(me.momentumTimer);
@@ -1069,6 +1074,9 @@ class ScrollArea {
         this.windowMouseMove = (e) => {
             if (!this.isDown)
                 return;
+            if (document["_slider"])
+                return;
+            console.log("move");
             const y = e.pageY - this.box.offsetTop;
             const now = Date.now();
             const dy = y - this.lastY;
@@ -1110,7 +1118,7 @@ var SliderOrientation;
     SliderOrientation[SliderOrientation["Vertical"] = 1] = "Vertical";
 })(SliderOrientation || (SliderOrientation = {}));
 class Slider {
-    constructor(slider, associate) {
+    constructor(slider, associate, filled = false) {
         let knob = document.createElement("div");
         knob.classList.add("knob");
         this._slider = get(slider);
@@ -1118,6 +1126,14 @@ class Slider {
         this._slider["slider"] = this;
         this._knob = knob;
         this._associate = associate ? get(associate) : null;
+        this._filled = filled;
+        if (this._filled) {
+            let fill = document.createElement("div");
+            fill.classList.add("fill");
+            fill.style.pointerEvents = "none";
+            this._slider.appendChild(fill);
+            this._fill = fill;
+        }
         this._position = 0;
         this._min = 0;
         this._max = 100;
@@ -1130,6 +1146,7 @@ class Slider {
         this.onsubmit = null;
         window.addEventListener("resize", () => this.move(this._position));
         function sliderMouseMove(e, s) {
+            document["_slider"] = s;
             let rect = s._slider.getBoundingClientRect();
             let pos = getFingerPos(e);
             if (s._orientation == SliderOrientation.Horizontal) {
@@ -1161,15 +1178,12 @@ class Slider {
         }
         function sliderMouseUp(e, s) {
             if (isMouseEvent(e)) {
-                if (e.button == 0) {
+                if (e.button == 0)
                     s._knob.removeClass("pressed");
-                    document._slider = null;
-                }
             }
-            else {
+            else
                 s._knob.removeClass("pressed");
-                document._slider = null;
-            }
+            document["_slider"] = this;
         }
         if (hasTouchSupport()) {
             this._slider.addEventListener("touchstart", e => {
@@ -1229,6 +1243,8 @@ class Slider {
             if (this._inverted)
                 percent = 1 - percent;
             this._knob.style.left = (width * percent).toString() + "px";
+            if (this._filled) {
+            }
         }
         else {
             let height = this._slider.getBoundingClientRect().height - this._offset - 2;
@@ -1236,7 +1252,12 @@ class Slider {
             let percent = (this._position - this.min) / range;
             if (this._inverted)
                 percent = 1 - percent;
-            this._knob.style.top = (height * percent).toString() + "px";
+            let t = height * percent;
+            this._knob.style.top = t.toString() + "px";
+            if (this._filled) {
+                this._fill.style.top = this._knob.style.top;
+                this._fill.style.height = (height - t + 22).toString() + "px";
+            }
         }
     }
     handleSubmit() {
@@ -2204,6 +2225,23 @@ ${f.checked[playlistIndex][i] ? "fa-square-check" : "fa-square"}"></i>${f.songs[
 }
 let switchMovies;
 function initMovies() {
+    let masterVolume;
+    masterVolume = new Slider("#movies .slider", null, true);
+    masterVolume.orientation = SliderOrientation.Vertical;
+    masterVolume.max = 100;
+    masterVolume.step = 0.01;
+    masterVolume.inverted = true;
+    masterVolume.move(5);
+    function volumeRead(v) {
+        masterVolume.move(v);
+    }
+    setTimeout(() => fetchJson("/?action=settings-get-volume", volumeRead), 1000);
+    Messages.subscribe("volume", null, volumeRead);
+    function masterVolumeSubmit() {
+        let p = Math.round(masterVolume.position);
+        fetch(`/?action=settings-set-volume&volume=${p}`);
+    }
+    masterVolume.onsubmit = masterVolumeSubmit;
     let state = {
         status: {
             playing: "",
@@ -2247,6 +2285,7 @@ function initMovies() {
     let listTab = get("#movies .list");
     let progress = get("#progress");
     let single = true;
+    let current = "";
     function switcherClick() {
         let i = switcher.get("i");
         single = !single;
@@ -2272,9 +2311,9 @@ function initMovies() {
         fetch("/?action=touch");
         let title = t.attributes.getNamedItem("title").value;
         let year = t.attributes.getNamedItem("year").value;
-        let movie = movieList.find(m => m.title === title && m.year === year);
+        let m = movieList.find(m => m.title === title && m.year === year);
         setTimeout(() => {
-            movieReceived(movie);
+            fetchPost("/search/?action=search-set-movie-last", { movie: JSON.stringify(m) });
         }, 1000);
     }
     function rebuildList() {
@@ -2291,6 +2330,7 @@ function initMovies() {
     switcher.addEventListener("click", switcherClick);
     function movieReceived(m) {
         state.movies.selected = m.title;
+        current = m.title;
         title.innerText = `${m.title} (${m.year})`;
         poster.src = `/storage/movies/data/${m.movie_id}.jpg`;
         info.innerHTML = `${m.runtime} <span class="imdb">imdb</span> rating ${m.imdb_rating}
@@ -2465,9 +2505,10 @@ Summary: ${m.plot}`;
     }
     function playClick() {
         if (state.status.playing == "none") {
-            fetchPost("/?action=movies-play-movie", { movie: state.movies.selected });
-            let p = get("#movies #waiting");
-            p.style.display = "block";
+            fetchPost("/?action=movies-play-movie", { movie: current });
+            let w = get("#movies #waiting");
+            w.style.display = "block";
+            setTimeout(() => w.style.display = "none", 8000);
             return;
         }
         if (state.status.playing == "playing") {
@@ -2531,6 +2572,7 @@ Summary: ${m.plot}`;
     Messages.subscribe("powered", poweredConnect, poweredReceived);
     Messages.subscribe("muted", mutedConnect, mutedReceived);
     switchMovies = function () {
+        setTimeout(() => fetchJson("/?action=settings-get-volume", volumeRead), 500);
     };
 }
 let switchSettings;
@@ -2624,7 +2666,8 @@ function initSettings() {
     settingsVolume.max = 100;
     settingsVolume.step = 0.01;
     function volumeSubmit() {
-        fetch(`/?action=settings-set-volume&volume=${settingsVolume.position}`);
+        var p = Math.round(settingsVolume.position);
+        fetch(`/?action=settings-set-volume&volume=${p}`);
     }
     settingsVolume.onsubmit = volumeSubmit;
     const sleepLabels = ["sleep after 15 minutes", "sleep after 30 minutes", "sleep after 1 hour",
@@ -2761,7 +2804,6 @@ function initSettings() {
         intensityChange();
         settingsLightSpeed.move(s.speed + 5);
         speedChange();
-        settingsVolume.move(s.volume);
         sleepIndex = s.sleep;
         sleepLabel.innerText = sleepLabels[sleepIndex];
         visualIndex = s.visuals;
@@ -2775,6 +2817,11 @@ function initSettings() {
             sourceMusicRadio.removeClass("fa-circle-dot").addClass("fa-circle");
         }
     }
+    function volumeRead(v) {
+        settingsVolume.move(v);
+    }
+    fetchJson("/?action=settings-get-volume", volumeRead);
+    Messages.subscribe("volume", null, volumeRead);
     switchSettings = () => {
         fetchJson("/?action=settings-get-all", settingsRead);
         fetchJson("/?action=settings-get-access-code", accessCodeRead);

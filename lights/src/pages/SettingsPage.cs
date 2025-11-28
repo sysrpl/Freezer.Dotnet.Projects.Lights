@@ -20,7 +20,7 @@ public partial class HomePage : PageHandler
         var s = new Settings();
         s.intensity = state.Intensity / LightState.lightmax * 5f;
         s.speed = state.Speed;
-        s.volume = state.MasterVolume;
+        s.volume = 0;
         s.visuals = (int)state.Visuals;
         s.visualsource = (int)state.VisualSource;
         s.sleep = (int)SleepMonitor.Mode;
@@ -37,14 +37,10 @@ public partial class HomePage : PageHandler
     public void SettingsSave() => state.Save();
 
     [Action("settings-get-volume")]
-    public void SettingsGetVolume() => Write($"[ {state.MasterVolume} ]");
+    public void SettingsGetVolume() => Write($"{state.MasterVolume}");
 
     [Action("settings-set-volume")]
-    public void SettingsSetVolume()
-    {
-        state.MasterVolume = ReadFloat("volume");
-        state.SaveVolume();
-    }
+    public void SettingsSetVolume() => state.MasterVolume = ReadInt("volume");
 
     [Action("settings-get-intensity")]
     public void SettingsGetIntensity() => Write($"[{state.Intensity / LightState.lightmax * 5f}]");

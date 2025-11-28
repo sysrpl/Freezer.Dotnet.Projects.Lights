@@ -24,7 +24,6 @@ public class LightState
     double sync;
     bool running;
     float musicVolume;
-    float masterVolume;
     Color color;
     AudioVisuals visuals;
     AudioVisualSource visualSource;
@@ -83,7 +82,6 @@ public class LightState
         time1 = 0;
         sync = 0;
         musicVolume = 50;
-        masterVolume = 50;
         color = Color.Black;
         visuals = AudioVisuals.None;
         running = true;
@@ -269,10 +267,10 @@ public class LightState
 
     /* volumes are locked on read because they are not copied on assign */
 
-    public float MasterVolume
+    public int MasterVolume
     {
-        get { lock (Mutex) return masterVolume; }
-        set { lock (Mutex) masterVolume = value; }
+        get { lock (Mutex) return Hardware.HardwareMonitor.Volume; }
+        set { lock (Mutex) Hardware.HardwareMonitor.Volume = value; }
     }
 
     private static void RunCommand(string command)
@@ -328,14 +326,10 @@ public class LightState
         {
             string f;
             float v;
-            f = App.AppPath("private/master-volume");
-            if (File.Exists(f))
-                masterVolume = float.TryParse(File.ReadAllText(f), out v) ? v : masterVolume;
             f = App.AppPath("private/music-volume");
             if (File.Exists(f))
                 musicVolume = float.TryParse(File.ReadAllText(f), out v) ? v : musicVolume;
             musicVolume = Math.Clamp(musicVolume, 0, 100);
-            masterVolume = Math.Clamp(masterVolume, 0, 100);
             RunCommand($"pactl set-sink-volume @DEFAULT_SINK@ {(int)musicVolume}%");
         }
     }
@@ -345,8 +339,6 @@ public class LightState
         lock (Mutex)
         {
             string f;
-            f = App.AppPath("private/master-volume");
-            File.WriteAllText(f, masterVolume.ToString());
             f = App.AppPath("private/music-volume");
             File.WriteAllText(f, musicVolume.ToString());
         }

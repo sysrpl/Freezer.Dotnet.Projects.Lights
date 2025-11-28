@@ -87,6 +87,7 @@
 
     #movies .details {
         margin-top: -2em;
+        padding-left: 2em;
     }
 
     .playing .container {
@@ -177,6 +178,10 @@
 
     #settings #visualsource span.microphone {
         margin-left: -1.5em;
+    }
+
+    #webcontrol {
+        margin-left: -20pt;
     }
 
     #movies .container {

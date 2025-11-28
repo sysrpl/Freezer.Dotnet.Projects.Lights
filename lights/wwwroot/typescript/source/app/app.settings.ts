@@ -107,13 +107,14 @@ function initSettings() {
     settingsVolume.step = 0.01;
 
     function volumeSubmit() {
-        fetch(`/?action=settings-set-volume&volume=${settingsVolume.position}`);
+        var p = Math.round(settingsVolume.position);
+        fetch(`/?action=settings-set-volume&volume=${p}`);
     }
 
     settingsVolume.onsubmit = volumeSubmit;
 
     const sleepLabels = ["sleep after 15 minutes", "sleep after 30 minutes", "sleep after 1 hour",
-            "sleep after 4 hours", "sleep after 6 hours", "never goto sleep"];
+        "sleep after 4 hours", "sleep after 6 hours", "never goto sleep"];
     let sleepIndex = 0;
     let sleepLabel = get("#settings #sleep .label");
 
@@ -291,7 +292,6 @@ function initSettings() {
         intensityChange();
         settingsLightSpeed.move(s.speed + 5);
         speedChange();
-        settingsVolume.move(s.volume);
         sleepIndex = s.sleep;
         sleepLabel.innerText = sleepLabels[sleepIndex];
         visualIndex = s.visuals;
@@ -305,6 +305,13 @@ function initSettings() {
             sourceMusicRadio.removeClass("fa-circle-dot").addClass("fa-circle");
         }
     }
+
+    function volumeRead(v: number) {
+        settingsVolume.move(v);
+    }
+
+    fetchJson("/?action=settings-get-volume", volumeRead);
+    Messages.subscribe("volume", null, volumeRead);
 
     switchSettings = () => {
         fetchJson("/?action=settings-get-all", settingsRead);
